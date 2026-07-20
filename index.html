@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIkxlbywgbHVlZ28gcmVzdWVsdm8iLCAic2hvcnRfbmFtZSI6ICJMZW9SZXN1ZWx2byIsICJkZXNjcmlwdGlvbiI6ICJQbGFuIGRlIExlY3R1cmEgeSBSZXNvbHVjaVx1MDBmM24gZGUgUHJvYmxlbWFzIHBvciBjdXJzb3MgLSBDRUlQIENhcGl0dWxhY2lvbmVzIGRlIFNhbnRhIEZlIiwgInN0YXJ0X3VybCI6ICIuIiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJsYW5nIjogImVzIiwgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsICJ0aGVtZV9jb2xvciI6ICIjMjU2M2ViIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0F4T1RJZ01Ua3lJajQ4Y21WamRDQjNhV1IwYUQwaU1Ua3lJaUJvWldsbmFIUTlJakU1TWlJZ2NuZzlJalF5SWlCbWFXeHNQU0lqTWpVMk0yVmlJaTgrUEhSbGVIUWdlRDBpT1RZaUlIazlJakV6T0NJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabTl1ZEMxemFYcGxQU0l4TVRBaVB2Q2Zwb284TDNSbGVIUStQQzl6ZG1jKyIsICJzaXplcyI6ICJhbnkiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn1dfQ==">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Leo, luego resuelvo — Plan de Lectura y Resolución de Problemas · CEIP Capitulaciones</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iOTYiIHk9IjEzOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMTAiPvCfk5o8L3RleHQ+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --color-primary:#2563eb; --color-primary-light:#dbeafe; --color-primary-dark:#1d4ed8;
+  --color-secondary:#7c3aed;
+  --color-lectura:#7c3aed; --color-lectura-light:#f3efff; --color-lectura-dark:#6d28d9;
+  --color-mat:#ea580c; --color-mat-light:#fff3e6; --color-mat-dark:#c2410c;
+  --color-bg:#f4f7fe; --color-surface:#ffffff; --color-border:#e2e8f0;
+  --color-text:#1e293b; --color-text-muted:#64748b;
+  --color-success:#16a34a; --color-success-bg:#dcfce7;
+  --color-warning:#d97706; --color-warning-bg:#fef3c7;
+  --color-info:#0891b2; --color-info-bg:#e0f2fe;
+  --shadow-sm:0 1px 3px rgba(30,41,59,.08);
+  --shadow-md:0 6px 18px rgba(30,41,59,.10);
+  --radius:18px;
+}
+body{font-family:'Nunito',system-ui,sans-serif;background:
+  radial-gradient(ellipse at 0% 0%, rgba(37,99,235,.10) 0%, transparent 55%),
+  radial-gradient(ellipse at 100% 0%, rgba(124,58,237,.08) 0%, transparent 55%),
+  radial-gradient(ellipse at 50% 100%, rgba(234,88,12,.07) 0%, transparent 55%),
+  var(--color-bg);
+  color:var(--color-text);line-height:1.55;min-height:100vh;font-size:16px}
+
+/* HEADER */
+.header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--color-border);padding:.9rem 1.2rem;position:sticky;top:0;z-index:50;box-shadow:var(--shadow-sm)}
+.hc{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.hlogo{font-size:2rem}
+.htxt h1{font-size:1.12rem;font-weight:900;color:var(--color-primary-dark);letter-spacing:-.01em}
+.htxt p{font-size:.74rem;color:var(--color-text-muted);font-weight:700}
+.hbtns{margin-left:auto;display:flex;gap:.5rem}
+.btn-ghost{background:var(--color-primary-light);border:1.5px solid transparent;color:var(--color-primary-dark);padding:.5rem 1rem;border-radius:50px;font-weight:800;font-size:.82rem;cursor:pointer;font-family:inherit;transition:all .2s;min-height:44px}
+.btn-ghost:hover{border-color:var(--color-primary);transform:translateY(-1px)}
+.btn-ghost:active{transform:scale(.97)}
+.btn-ghost:focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
+.btn-big{background:var(--color-primary);color:#fff;border:none;padding:.75rem 1.3rem;border-radius:50px;font-weight:900;font-size:.95rem;cursor:pointer;font-family:inherit;transition:all .2s;min-height:52px;box-shadow:0 5px 14px rgba(37,99,235,.35)}
+.btn-big:hover{transform:translateY(-2px)}
+.btn-big:active{transform:scale(.97)}
+.btn-big:focus-visible{outline:3px solid var(--color-primary-dark);outline-offset:3px}
+
+/* PASOS 1-2-3 */
+.selwrap{max-width:1080px;margin:1.2rem auto 0;padding:0 1rem}
+.paso{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius);padding:.9rem 1.1rem;margin-bottom:.75rem;box-shadow:var(--shadow-sm)}
+.pasotit{display:flex;align-items:center;gap:.6rem;font-weight:900;font-size:.95rem;margin-bottom:.6rem;color:var(--color-primary-dark)}
+.pasonum{background:var(--color-primary);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.chiprow{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{background:var(--color-surface);border:2.5px solid var(--color-border);color:var(--color-text);padding:.5rem 1.05rem;border-radius:50px;font-weight:900;font-size:.95rem;cursor:pointer;font-family:inherit;transition:all .18s;min-height:48px}
+.chip:hover{border-color:var(--color-primary);transform:translateY(-1px)}
+.chip:active{transform:scale(.96)}
+.chip:focus-visible{outline:3px solid var(--color-primary);outline-offset:2px}
+.chip.act{background:var(--color-primary);border-color:var(--color-primary);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.35)}
+.chip.mesch.act{background:var(--color-secondary);border-color:var(--color-secondary);box-shadow:0 4px 12px rgba(124,58,237,.3)}
+.vtabs{display:flex;gap:.5rem;flex-wrap:wrap}
+.vtab{flex:1;min-width:130px;border:2.5px solid var(--color-border);background:var(--color-surface);padding:.7rem .6rem;border-radius:16px;font-weight:900;font-size:.9rem;color:var(--color-text-muted);cursor:pointer;font-family:inherit;transition:all .18s;min-height:64px;text-align:center;line-height:1.3}
+.vtab .vsub{display:block;font-size:.68rem;font-weight:700;opacity:.75}
+.vtab.act{background:var(--color-primary);border-color:var(--color-primary);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.35)}
+.vtab.act .vsub{opacity:.9}
+.vtab:focus-visible{outline:3px solid var(--color-primary);outline-offset:2px}
+.vtab:active{transform:scale(.98)}
+
+/* CONTENIDO */
+.container{max-width:1080px;margin:1rem auto 3rem;padding:0 1rem}
+.ctxbar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;background:var(--color-info-bg);border:1.5px solid #bae6fd;border-radius:var(--radius);padding:.75rem 1rem;margin-bottom:1.1rem;font-size:.88rem;font-weight:800;color:#075985}
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .7rem;border-radius:50px;font-size:.74rem;font-weight:900}
+.b-lec{background:var(--color-lectura-light);color:var(--color-lectura-dark)}
+.b-mat{background:var(--color-mat-light);color:var(--color-mat-dark)}
+.b-info{background:var(--color-info-bg);color:#075985}
+
+.card{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius);padding:1.2rem 1.3rem;box-shadow:var(--shadow-sm);margin-bottom:1rem;animation:fadeInUp .3s ease}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.card h2{font-size:1.08rem;font-weight:900;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.card h3{font-size:.92rem;font-weight:900;margin:.85rem 0 .35rem;color:var(--color-text)}
+.card.lec{border-left:6px solid var(--color-lectura)}
+.card.mat{border-left:6px solid var(--color-mat)}
+.card.lec h2{color:var(--color-lectura-dark)}
+.card.mat h2{color:var(--color-mat-dark)}
+.muted{color:var(--color-text-muted);font-size:.85rem;font-weight:700}
+ul.clean{list-style:none;padding:0}
+ul.clean li{padding:.38rem 0 .38rem 1.6rem;position:relative;font-size:.9rem;border-bottom:1px dashed var(--color-border)}
+ul.clean li:last-child{border-bottom:none}
+ul.clean li::before{content:'✅';position:absolute;left:0;font-size:.85rem}
+ul.clean.mat li::before{content:'🔢'}
+.tagrow{display:flex;gap:.45rem;flex-wrap:wrap;margin:.45rem 0}
+.tag{background:var(--color-lectura-light);color:var(--color-lectura-dark);padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:800}
+.tag.mat{background:var(--color-mat-light);color:var(--color-mat-dark)}
+.vword{background:#fff;border:2px solid #c7d2fe;color:#3730a3;padding:.32rem .8rem;border-radius:50px;font-size:.86rem;font-weight:900;box-shadow:0 2px 5px rgba(67,56,202,.12)}
+.vword.mini{font-size:.8rem;padding:.22rem .65rem}
+.vocabsec{margin-top:.65rem;padding:.6rem .75rem;border-radius:14px;font-size:.83rem;font-weight:700;background:#eef2ff;border:1.5px dashed #c7d2fe}
+.vocabsec .stit{font-weight:900;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;color:#3730a3}
+.semcard.aqui{border:3px solid var(--color-success);box-shadow:0 6px 20px rgba(22,163,74,.25)}
+.aquibadge{background:#fff;color:#166534;border-radius:50px;padding:.1rem .6rem;font-size:.68rem;margin-left:.4rem;animation:latido 1.6s ease-in-out infinite;display:inline-block}
+@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.chkhecha{display:flex;align-items:center;gap:.35rem;font-size:.74rem;font-weight:900;background:rgba(255,255,255,.2);padding:.25rem .6rem;border-radius:50px;cursor:pointer}
+.chkhecha input{width:18px;height:18px;accent-color:#16a34a;cursor:pointer}
+.duasec{margin-top:.6rem;padding:.55rem .7rem;border-radius:14px;font-size:.76rem;font-weight:700;background:#fefce8;border:1.5px dashed #fde047;color:#713f12}
+.notasprint{display:none;margin-top:.5rem;font-size:.78rem;font-weight:700;color:#475569}
+.tdonde{display:block;font-size:.7rem;font-weight:700;color:#0e7490;margin-top:.2rem}
+@media print{.notasprint{display:block}.chkhecha{background:none;border:1.5px solid #94a3b8;color:#1e293b}.aquibadge{animation:none}}
+
+/* RELOJ DE SESIÓN (3 fases) */
+.reloj{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+.fasebox{flex:1;min-width:150px;border-radius:14px;padding:.6rem .7rem;font-size:.8rem;font-weight:700;line-height:1.35}
+.fasebox .ft{font-weight:900;font-size:.86rem;display:flex;align-items:center;gap:.35rem;margin-bottom:.15rem}
+.fb1{background:#fef3c7;color:#92400e}.fb2{background:#dbeafe;color:#1e40af}.fb3{background:#dcfce7;color:#166534}
+
+/* NIVELES DE COMPRENSIÓN (escalera) */
+.escalera{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+.nivel{flex:1;min-width:170px;border-radius:14px;padding:.6rem .7rem;font-size:.8rem;font-weight:700;line-height:1.35;border:2px solid transparent}
+.nivel .nt{font-weight:900;font-size:.86rem;margin-bottom:.1rem}
+.n1{background:#f0fdf4;border-color:#bbf7d0;color:#166534}
+.n2{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+.n3{background:#faf5ff;border-color:#e9d5ff;color:#6d28d9}
+
+/* TIPOS DE TEXTO — tarjeta visual */
+.tipobox{display:flex;align-items:center;gap:.55rem;background:#fff;border:2px solid var(--color-lectura-light);border-radius:14px;padding:.45rem .65rem}
+.tipobox .temoji{font-size:1.5rem;flex-shrink:0}
+.tipobox .tname{font-weight:900;font-size:.85rem;color:var(--color-lectura-dark)}
+.tipobox .tej{font-size:.72rem;font-weight:700;color:var(--color-text-muted)}
+
+/* GRID TRIMESTRE */
+.mesgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.mescard{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius);padding:1rem 1.1rem;box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .18s,box-shadow .18s;animation:fadeInUp .3s ease;text-align:left;font-family:inherit;width:100%}
+.mescard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.mescard:focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
+.mescard .mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.mescard .mname{font-weight:900;font-size:1.05rem;color:var(--color-primary-dark)}
+.msec{margin-top:.55rem;padding:.6rem .75rem;border-radius:14px;font-size:.84rem;font-weight:700}
+.msec.lec{background:var(--color-lectura-light)}
+.msec.mat{background:var(--color-mat-light)}
+.msec .mtit{font-weight:900;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
+.msec.lec .mtit{color:var(--color-lectura-dark)}
+.msec.mat .mtit{color:var(--color-mat-dark)}
+.verdet{margin-top:.6rem;font-weight:900;font-size:.8rem;color:var(--color-primary)}
+
+/* SEMANAS */
+.semgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem}
+.semcard{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;animation:fadeInUp .3s ease}
+.semhead{background:linear-gradient(120deg,var(--color-primary),var(--color-secondary));color:#fff;padding:.65rem 1rem;font-weight:900;font-size:.98rem;display:flex;justify-content:space-between;align-items:center}
+.sembody{padding:.9rem 1rem}
+.dayrow{display:flex;gap:.6rem;align-items:center;padding:.45rem 0;border-bottom:1px dashed var(--color-border)}
+.dayrow:last-child{border-bottom:none}
+.daylab{min-width:44px;font-weight:900;color:var(--color-lectura-dark);background:var(--color-lectura-light);border-radius:10px;text-align:center;padding:.3rem .2rem;font-size:.78rem;flex-shrink:0}
+.daylab.v{color:#166534;background:var(--color-success-bg)}
+.dayemoji{font-size:1.45rem;flex-shrink:0;width:32px;text-align:center}
+.daytxt{font-size:.82rem;line-height:1.3}
+.daytxt strong{font-size:.86rem}
+.daytxt .dej{color:var(--color-text-muted);font-weight:700;font-size:.73rem}
+.semsec{margin-top:.65rem;padding:.6rem .75rem;border-radius:14px;font-size:.83rem;font-weight:700}
+.semsec.mat{background:var(--color-mat-light)}
+.semsec.lec{background:var(--color-lectura-light)}
+.semsec .stit{font-weight:900;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem}
+.semsec.mat .stit{color:var(--color-mat-dark)}
+.semsec.lec .stit{color:var(--color-lectura-dark)}
+
+.empty{background:var(--color-warning-bg);border:1.5px solid #fcd34d;border-radius:var(--radius);padding:1rem 1.2rem;font-weight:800;color:#92400e;font-size:.9rem;display:flex;gap:.6rem;align-items:center}
+
+/* MODAL GUÍA TIPOS DE TEXTO */
+.modalbg{position:fixed;inset:0;background:rgba(30,41,59,.45);display:none;align-items:flex-start;justify-content:center;z-index:100;padding:2rem 1rem;overflow-y:auto}
+.modalbg.show{display:flex}
+.modal{background:#fff;border-radius:22px;max-width:640px;width:100%;padding:1.4rem 1.5rem;box-shadow:0 20px 60px rgba(30,41,59,.3);animation:fadeInUp .25s ease}
+.modal h2{font-size:1.1rem;font-weight:900;color:var(--color-lectura-dark);display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem}
+.mclose{background:var(--color-lectura-light);border:none;width:40px;height:40px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:var(--color-lectura-dark);font-weight:900}
+.mclose:hover{background:#e9d5ff}
+.mclose:focus-visible{outline:3px solid var(--color-lectura);outline-offset:2px}
+.guiagrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;margin-top:.7rem}
+
+.footer{max-width:1080px;margin:0 auto 2rem;padding:0 1rem;font-size:.74rem;color:var(--color-text-muted);font-weight:700;text-align:center}
+
+@media (max-width:640px){
+  .vtab{min-width:100%}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+@media print{
+  body{background:#fff}
+  .header,.selwrap,.hbtns,.footer,.verdet,.btn-big,.btn-ghost{display:none}
+  .container{max-width:100%;margin:0;padding:0}
+  .card,.mescard,.semcard{box-shadow:none;break-inside:avoid;border-color:#cbd5e1}
+  .printhead{display:block!important;font-size:1rem;font-weight:900;margin-bottom:.8rem;border-bottom:2px solid #1e293b;padding-bottom:.4rem}
+}
+.printhead{display:none}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="hc">
+    <div class="hlogo" aria-hidden="true">🦊</div>
+    <div class="htxt">
+      <h1>Leo, luego resuelvo</h1>
+      <p>📖 Plan de Lectura + 🔢 Resolución de Problemas · CEIP Capitulaciones de Santa Fe · 2025-26</p>
+    </div>
+    <div class="hbtns">
+      <button class="btn-ghost" onclick="abrirGuia()" aria-label="Abrir guía de tipos de texto">❓ ¿Qué es cada tipo de texto?</button>
+      <button class="btn-ghost" onclick="window.print()" aria-label="Imprimir vista actual">🖨️ Imprimir</button>
+    </div>
+  </div>
+</header>
+
+<div class="selwrap">
+  <div class="paso">
+    <div class="pasotit"><span class="pasonum">1</span> Elige tu curso</div>
+    <div class="chiprow" id="cursoChips" role="group" aria-label="Curso"></div>
+  </div>
+  <div class="paso">
+    <div class="pasotit"><span class="pasonum">2</span> Elige trimestre <span id="mesPasoLbl" class="muted" style="font-weight:800">y mes</span></div>
+    <div class="chiprow" id="trimChips" role="group" aria-label="Trimestre" style="margin-bottom:.55rem"></div>
+    <div class="chiprow" id="mesChips" role="group" aria-label="Mes"></div>
+  </div>
+  <div class="paso">
+    <div class="pasotit"><span class="pasonum">3</span> ¿Cuánto detalle quieres ver?</div>
+    <div class="vtabs" role="tablist" aria-label="Nivel de detalle">
+      <button class="vtab act" id="vt-trim" role="tab" onclick="setVista('trim')">📅 Todo el trimestre<span class="vsub">visión general</span></button>
+      <button class="vtab" id="vt-mes" role="tab" onclick="setVista('mes')">🗓️ Un mes<span class="vsub">qué y cómo trabajarlo</span></button>
+      <button class="vtab" id="vt-sem" role="tab" onclick="setVista('sem')">📆 Semana a semana<span class="vsub">plan día a día</span></button>
+    </div>
+  </div>
+</div>
+
+<main class="container" id="main"></main>
+
+<footer class="footer">
+  Basado en el Plan de Actuación de Lectura y el Plan de Resolución de Problemas del CEIP Capitulaciones (Instrucciones 21/06/2023 · Decreto 101/2023). Metodología de lectura del centro: cada día un texto distinto, 30 minutos, 3 pasos.
+</footer>
+
+<!-- MODAL GUÍA -->
+<div class="modalbg" id="guiaBg" role="dialog" aria-modal="true" aria-labelledby="guiaTit" onclick="if(event.target===this)cerrarGuia()">
+  <div class="modal">
+    <h2 id="guiaTit">📖 Los tipos de texto, explicados fácil <button class="mclose" onclick="cerrarGuia()" aria-label="Cerrar guía">✕</button></h2>
+    <p class="muted">Cada día se lee un texto de un tipo distinto. Aquí tienes qué es cada uno, con ejemplos de clase:</p>
+    <div class="guiagrid" id="guiaGrid"></div>
+  </div>
+</div>
+
+<script>
+/* ══════════ DATOS DEL PLAN DE ACTUACIÓN ══════════ */
+const MAT_ITINERARIO = {"1":{"OCTUBRE":"Conteo y comparación · Sumas con objetos manipulativos","NOVIEMBRE":"Ubicación espacial · Sumas y restas hasta 10","DICIEMBRE":"Comparación de cantidades · Clasificación y ordenación","ENERO":"Sumas y restas hasta 20 · Identificación de patrones","FEBRERO":"Sumas y restas con elementos visuales · Conteo hasta 20","MARZO":"Clasificación de objetos · Estimación","ABRIL":"Sumas con objetos manipulativos · Comparación","MAYO":"Ubicación espacial · Series numéricas","JUNIO":"Sumas y restas hasta 20 · Estimación"},"2":{"OCTUBRE":"Sumas y restas hasta 20 · Comparación de cantidades","NOVIEMBRE":"Dobles y mitades · Introducción a la multiplicación","DICIEMBRE":"Problemas de dinero · Sumas y restas hasta 50","ENERO":"Multiplicación (repetición de sumas) · División sencilla","FEBRERO":"Medidas (longitud y peso) · Tiempo básico","MARZO":"Fracciones sencillas · Suma y resta con decenas","ABRIL":"Multiplicación y división en contextos cotidianos · Dinero","MAYO":"Medidas (kilogramos, litros) · Fracciones sencillas","JUNIO":"Geometría básica (formas y longitudes) · Patrones"},"3":{"OCTUBRE":"Sumas y restas hasta 100 · Multiplicación tablas 1-5","NOVIEMBRE":"División como reparto equitativo · Tiempo (horas y días)","DICIEMBRE":"Fracciones simples (medias y cuartos) · Dinero con monedas","ENERO":"Multiplicación tablas 6-10 · División con números mayores","FEBRERO":"Fracciones en situaciones cotidianas · Estimación y medidas","MARZO":"Geometría (perímetro de figuras) · Tiempo (días y semanas)","ABRIL":"Decimales simples · Dinero (compras y devoluciones)","MAYO":"Multiplicación y división combinadas · Estimación de longitud","JUNIO":"Fracciones y decimales combinados · Patrones numéricos"},"4":{"OCTUBRE":"Sumas y restas hasta 1.000 · Multiplicación de dos cifras","NOVIEMBRE":"División de dos cifras · Fracciones (tercios, cuartos, quintos)","DICIEMBRE":"Medidas (longitud, peso, capacidad) · Tiempo","ENERO":"Fracciones equivalentes · Dinero (compras con cambio)","FEBRERO":"Multiplicación y división complejas · Geometría (áreas y perímetros)","MARZO":"Fracciones en la vida cotidiana · Geometría y medidas","ABRIL":"Decimales y medidas · División con números grandes","MAYO":"Porcentajes sencillos · Dinero con decimales","JUNIO":"Geometría (áreas y perímetros complejos) · Fracciones y decimales"},"5":{"OCTUBRE":"Números naturales — operaciones básicas, suma de dinero, multiplicación, reparto","NOVIEMBRE":"Multiplicación y potencias — propiedad distributiva, uso de potencias","DICIEMBRE":"División · Múltiplos y divisores — reparto equitativo, divisibilidad","ENERO":"Figuras geométricas — clasificación de triángulos, simetría, ángulos","FEBRERO":"Fracciones — comparación, fracción de un número, compartir cantidades","MARZO":"Números decimales — compras, distribución de dinero","ABRIL":"Operaciones con decimales — división y multiplicación decimal","MAYO":"Proporcionalidad y porcentajes — descuentos, proporción en compras","JUNIO":"Unidades de medida · Perímetros · Volúmenes"},"6":{"OCTUBRE":"Números naturales — suma, multiplicación, división en contextos cotidianos","NOVIEMBRE":"Divisibilidad — reparto de objetos, agrupaciones, criterios","DICIEMBRE":"Números enteros — temperaturas, ahorro, niveles","ENERO":"Ángulos y movimientos — giros, simetría, medición de ángulos","FEBRERO":"Fracciones — repartir, compartir, fracciones en recetas","MARZO":"Números decimales — compra de frutas, distribución, gasolina","ABRIL":"División de números decimales — distribución, compra de artículos","MAYO":"Proporcionalidad y porcentajes — descuentos, reparto proporcional","JUNIO":"Medidas · Perímetros · Volúmenes — longitud, volumen de cajas, área"}};
+const OBJ_CICLO = {"1":{"label":"1er Ciclo (1º–2º)","objetivos":["Promover el uso cotidiano de la biblioteca de aula y escolar.","Fomentar el interés por la lectura a través de distintos tipos de textos: cuentos, rimas, poemas, pictogramas.","Ser capaces de contar una historia o expresar sus ideas principales tras escucharla o leerla.","Despertar el interés por actividades de lectura: cuentacuentos, audiocuentos, obras de teatro.","Reconocer letras, sonidos, las partes de un libro y palabras nuevas.","Jugar con los sonidos de las palabras y conocer bien las letras."],"ejes":["Sonidos de las palabras","Las letras","Primeras lecturas con soltura"],"estrategias":["Lectura en voz alta del maestro/a","Lectura coral","Lectura por turnos","Identificación de palabras clave","Dibujo de escenas","Identificación de personajes y emociones","Creación de final alternativo"]},"2":{"label":"2º Ciclo (3º–4º)","objetivos":["Leer con soltura, sin trabarse y sin errores.","Descubrir palabras nuevas fijándose en cómo se forman (prefijos, sufijos…).","Entender frases bien construidas: que estén ordenadas y tengan sentido.","Distinguir lo importante de lo secundario en un texto.","Entrenar la memoria y la atención mientras se lee.","Leer para cosas distintas: para informarse, para aprender, para disfrutar, para compartir.","Conocer los distintos tipos de texto y para qué sirve cada uno.","Empezar a «leer entre líneas»: entender lo que el texto no dice directamente.","Fomentar la curiosidad y el gusto por leer como experiencia enriquecedora.","Leer textos bonitos y bien escritos para disfrutar de la literatura."],"ejes":["Leer con soltura y sin errores","Vocabulario","Entender lo que dice el texto","Leer entre líneas"],"estrategias":["Actividad de vocabulario previa","Charlar sobre la época o el lugar del texto","Lluvia de ideas: ¿qué sabemos ya del tema?","Lectura en voz alta docente","Lectura silenciosa individual","Lectura guiada con corrección de pronunciación y entonación","Lectura en sombra: seguir el texto con la vista mientras otro lee","Identificación ideas principales","Subrayado de frases importantes","Preguntas sobre lo leído","Discusión en grupo","Hacer un cómic o un esquema de lo leído"]},"3":{"label":"3er Ciclo (5º–6º)","objetivos":["Aprender a opinar con criterio leyendo en grupo y en solitario.","Leer sobre temas de actualidad y charlar sobre ellos en clase (debates y tertulias).","Que leer sea un momento agradable y esperado, no un castigo.","Opinar sobre lo leído y trabajar textos con imágenes y vídeos.","Diario de lectura personal.","Presentaciones orales sobre temas de interés.","Debates en torno a noticias y textos informativos."],"ejes":["Opinar sobre lo leído","Textos con imágenes y vídeos","Dar argumentos y debatir","Reaccionar a lo leído (dibujo, opinión, resumen…)"],"estrategias":["Debate sobre acciones y decisiones de personajes","Creación de ensayos breves","Trabajar textos con imágenes y vídeos (infografías, carteles…)","Diario de lectura personal","Presentación oral","Tertulia: charla en círculo sobre lo leído","Lectura de textos periodísticos y de actualidad","Leer entre líneas y opinar sobre lo leído"]}};
+const SANT = {"1":{"OCTUBRE":{"trim":"1","nombre":"NOS DIVERTIMOS CON LOS NÚMEROS / LOS PIRATAS EN EL POLO — OCTUBRE","producto":"Listado de normas de los piratas (exposición oral) + situaciones numéricas lúdicas","len":{"titulo":"LOS PIRATAS EN EL POLO — Listado de deseos","tarea":"Crear un listado de deseos personales y exponerlo al resto de companeros del aula de forma oral","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a"},"mat":{"titulo":"NOS DIVERTIMOS CON LOS NUMEROS — Crucigrama numerico","tarea":"El alumnado realizara un crucigrama resolviendo enigmas con su numero correspondiente, aplicando numeros del 0 al 9, conteo y grafía","criterios":"2.2.a, 6.1.a, 6.2.a"}},"NOVIEMBRE":{"trim":"1","nombre":"VAMOS A MEDIR / ¿UN TESORO BAJO EL MAR? — NOVIEMBRE","producto":"Listado de objetos para la aventura (exposición oral) + registro de mediciones","len":{"titulo":"¿UN TESORO BAJO EL MAR? — Listado de emociones","tarea":"Crear un listado de emociones propias y ajenas y exponerlo al resto de companeros de forma oral y escrita","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a"},"mat":{"titulo":"VAMOS A MEDIR — Fabricar un pin midiendo y recortando","tarea":"El alumnado fabricara un pin para un companero manipulando papel cuadriculado, pinza y cartulina, aplicando medidas no convencionales y figuras geometricas","criterios":"1.1.a, 2.2.a, 3.2.a, 5.1.a, 6.1.a"}},"DICIEMBRE":{"trim":"1","nombre":"PASEAMOS POR LA CALLE / EL PUERTO DE LOS ESQUELETOS — DICIEMBRE","producto":"Nota para los piratas + texto narrativo breve / mapa de números del entorno","len":{"titulo":"EL PUERTO DE LOS ESQUELETOS — Nota de ayuda y texto poetico","tarea":"Crear una nota pidiendo ayuda para limpiar el mar de residuos y elaborar un texto poetico relacionado con el mar","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 8.3.a"},"mat":{"titulo":"PASEAMOS POR LA CALLE — Numeros de casas y ordinal","tarea":"El alumnado observara e identificara los numeros de las casas de una calle, aplicando numeros ordinales, comparacion y orden de numeros naturales hasta 99","criterios":"1.1.a, 2.1.a, 2.3.a, 3.1.a, 3.2.a, 6.1.a, 6.2.a"}},"ENERO":{"trim":"2","nombre":"¿JUGAMOS JUNTOS? / EN BUSCA DEL PEZ DE PLATA — ENERO","producto":"Menú para piratas elaborado y expuesto oralmente + resolución de situaciones de suma y resta con juegos","len":{"titulo":"EN BUSCA DEL PEZ DE PLATA — Menu de piratas","tarea":"Elaborar un menu para que los piratas almuercen o cenen siguiendo un modelo y exponerlo al resto de companeros","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 7.2.a"},"mat":{"titulo":"¿JUGAMOS JUNTOS? — Sumas y restas hasta el 19","tarea":"El alumnado practicara la realizacion de sumas y restas con numeros hasta el 19 en el contexto de juegos de mesa y actividades grupales","criterios":"1.1.a, 2.1.a, 2.2.a, 2.3.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.2.a, 6.1.a, 6.2.a"}},"FEBRERO":{"trim":"2","nombre":"¿QUÉ DÍA ES HOY? / EL RESCATE DE PATA PALO — FEBRERO","producto":"Invitación elaborada para los piratas + calendario personal con situaciones temporales","len":{"titulo":"EL RESCATE DE PATA PALO — Elaborar una invitacion","tarea":"Elaborar una invitacion de forma individual siguiendo un modelo y exponerla al resto de los companeros de aula","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 8.1.a, 8.2.a"},"mat":{"titulo":"¿QUE DIA ES HOY? — Calendario y medida del tiempo","tarea":"El alumnado aprendera a usar el calendario, los dias de la semana y los meses del ano para orientarse en el tiempo cotidiano y resolver situaciones reales","criterios":"1.1.a, 2.1.a, 2.2.a, 2.3.a, 3.1.a, 3.2.a, 4.1.a, 5.2.a, 6.1.a, 6.2.a"}},"MARZO":{"trim":"2","nombre":"HACEMOS DEPORTE / LA CIGARRA Y LA HORMIGA — MARZO","producto":"Cartel elaborado sobre la fábula + clasificación deportiva con datos numéricos","len":{"titulo":"LA CIGARRA Y LA HORMIGA — Cartel de concierto","tarea":"Elaborar un cartel para anunciar un concierto de la cigarra y la hormiga de forma individual siguiendo un modelo","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 8.1.a, 8.2.a"},"mat":{"titulo":"HACEMOS DEPORTE — Operaciones en contexto deportivo","tarea":"El alumnado resolvera operaciones matematicas en el contexto del deporte, aplicando sumas, restas y estrategias de calculo mental con numeros hasta el 99","criterios":"1.1.a, 2.1.a, 2.2.a, 2.3.a, 3.1.a, 3.2.a, 6.1.a, 6.2.a"}},"ABRIL":{"trim":"3","nombre":"¡A COCINAR! / EL LIBRO DE LA SELVA — ABRIL","producto":"Texto instructivo de normas de la selva + ficha de ingredientes con cálculos de cocina","len":{"titulo":"EL LIBRO DE LA SELVA — Normas de convivencia","tarea":"Elaborar normas de convivencia del aula a partir del modelo del libro y crear actividades para un clima de pertenencia","criterios":"2.1.a, 3.1.a, 3.2.a, 5.1.a, 8.1.a, 8.2.a, 9.1.a, 10.2.a"},"mat":{"titulo":"¡A COCINAR! — Medidas de capacidad y masa en recetas","tarea":"El alumnado resolvera situaciones de cocina aplicando medidas de capacidad, masa, geometria y operaciones basicas para elaborar y planificar recetas","criterios":"1.1.a, 2.1.a, 2.2.a, 2.3.a, 3.2.a, 4.1.a, 5.1.a, 5.2.a, 6.1.a, 6.2.a, 7.1.a, 7.2.a, 8.1.a, 8.2.a"}},"MAYO":{"trim":"3","nombre":"NUESTRO COLEGIO / EL ENANITO SALTARÍN — MAYO","producto":"Texto instructivo basado en el cuento + plano del colegio con datos numéricos","len":{"titulo":"EL ENANITO SALTARIN — Texto instructivo","tarea":"Elaborar un texto instructivo sobre el cesto proporcionando informacion y describiendo como es y como se hace","criterios":"3.1.a, 3.2.a, 5.1.a, 7.1.a, 8.2.a, 9.1.a, 10.1.a"},"mat":{"titulo":"NUESTRO COLEGIO — Agrupaciones y repartos","tarea":"El alumnado elaborara grupos de alumnos aplicando multiplicacion, reparto y division en situaciones reales del entorno escolar","criterios":"1.1.a, 2.1.a, 2.2.a, 2.3.a, 3.1.a, 3.2.a, 4.1.a, 5.2.a, 6.2.a, 7.1.a, 8.1.a"}},"JUNIO":{"trim":"3","nombre":"NOS VAMOS DE VIAJE / EL MAGO GASPAR — JUNIO","producto":"Cuento de magia escrito + planning de viaje con horarios y situaciones de tiempo y dinero","len":{"titulo":"EL MAGO GASPAR — Diario personal","tarea":"Aprender a escribir un diario personal identificando sus partes y escribiendo de forma cronologica los hechos vividos","criterios":"3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 9.1.a"},"mat":{"titulo":"NOS VAMOS DE VIAJE — Relojes y calculo del tiempo","tarea":"El alumnado aprendera el uso de relojes analogicos y digitales y calculara el tiempo transcurrido en situaciones de planificacion de un viaje","criterios":"1.1.a, 2.1.a, 2.2.a, 2.3.a, 3.2.a, 4.1.a, 5.1.a, 5.2.a, 6.1.a, 6.2.a, 7.1.a, 7.2.a, 8.1.a, 8.2.a"}}},"2":{"SEPTIEMBRE":{"trim":"1","nombre":"DISTANCIAS — ORDENAR INFORMACIÓN / TEXTO DESCRIPTIVO DE UNA PERSONA","producto":"Texto descriptivo de una persona + clasificación de distancias ordenadas","len":{"titulo":"ELABORACIÓN DE UN TEXTO DESCRIPTIVO DE UNA PERSONA","tarea":"El alumnado elaborará un texto descriptivo sobre una persona de su entorno, usando adjetivos calificativos, el orden lógico de la descripción y las normas ortográficas trabajadas.","criterios":"1.1.b, 2.1.b, 3.1.a, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 8.3.b"},"mat":{"titulo":"VAMOS DE EXCURSION — Ordenar distancias y organizar informacion","tarea":"El alumnado ordenara distancias de menor a mayor y organizara la informacion en un cartel, aplicando numeros 0-99, descomposicion en decenas y unidades, sumas y restas.","criterios":"1.1.b, 1.2.b, 2.2.b, 3.1.b, 3.2.b, 4.1.b, 6.1.b, 6.2.b"}},"OCTUBRE":{"trim":"1","nombre":"PUNTUACIONES DE VIDEOJUEGO — CLASIFICACIÓN / ELABORACIÓN DE UN CÓMIC","producto":"Cómic elaborado + clasificación de puntuaciones del videojuego","len":{"titulo":"¿TE GUSTA APRENDER? — Describir a una persona","tarea":"Describir a una persona especial indicando aspecto fisico, personalidad, gustos y rasgos, para que los demas puedan imaginarsela","criterios":"1.1.b, 2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 8.3.b"},"mat":{"titulo":"UNA CARRERA CICLISTA — Clasificacion de puntuaciones","tarea":"El alumnado averiguara la puntuacion faltante del videojuego, ordenara y hara una clasificacion, aplicando numeros 100-199, centenas/decenas/unidades y suma llevando.","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 3.2.b, 4.1.b, 6.1.b, 6.2.b"}},"NOVIEMBRE":{"trim":"1","nombre":"COMPARAR CAPACIDAD DE RECIPIENTES / TEXTO DESCRIPTIVO DE UN OBJETO","producto":"Texto descriptivo de un objeto + comparación de capacidad de recipientes","len":{"titulo":"¿QUE SABES DE LOS ANIMALES? — Elaborar un comic","tarea":"Elaborar un comic sobre animales con bocadillos, vinetas y dibujos propios, aplicando el vocabulario y la ortografia de la letra R trabajados","criterios":"1.1.b, 2.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b"},"mat":{"titulo":"UNA VISITA AL ACUARIO — Comparar recipientes por capacidad","tarea":"El alumnado comparara recipientes e identificara cual tiene mayor capacidad, aplicando unidades de medida, el litro y resta llevando.","criterios":"1.1.b, 1.2.b, 2.1.b, 3.2.b, 4.1.b, 5.2.b, 6.1.b, 6.2.b"}},"ENERO":{"trim":"2","nombre":"MEDIR ALTURAS — ORDENAR DATOS / ¿NOS VAMOS DE VIAJE?","producto":"Presentacion oral de personaje inventado + inicio de cuento escrito con descripcion fisica y de caracter","len":{"titulo":"¿NOS VAMOS DE VIAJE? — Inventar personajes e inicio de cuento","tarea":"Inventar personajes describiendo quien, como y donde se encuentran, y elaborar el inicio de un cuento con dichos personajes usando vocabulario de viajes","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 6.3.b, 8.1.b"},"mat":{"titulo":"LA REVISION MEDICA — Medir alturas y ordenar datos","tarea":"El alumnado medira alturas de compañeros con cinta metrica, las ordenara de mayor a menor y completara una tabla de datos, aplicando longitud y numeros ordinales.","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 4.1.b, 5.2.b, 6.1.b, 6.2.b"}},"FEBRERO":{"trim":"2","nombre":"AGILIDAD EN CALCULOS — OPERACIONES / ¿A QUE JUGAMOS?","producto":"Final de cuento escrito con ilustracion + recital de retahila de clase","len":{"titulo":"¿A QUE JUGAMOS? — Escribir el final de un cuento","tarea":"Inventar y escribir el final de un cuento elegido, aplicando marcadores espaciales, vocabulario de juegos y ortografia za/zo/zu/ce/ci","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 5.1.b, 8.2.b, 8.3.b"},"mat":{"titulo":"EN EL MERCADO — Pesar con balanza y comparar masas","tarea":"El alumnado usara una balanza para pesar compañeros, comparara los resultados usando mas que / menos que, aplicando unidades de masa y operaciones con numeros de 3 cifras.","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 3.2.b, 4.1.b, 5.2.b, 6.1.b, 6.2.b"}},"MARZO":{"trim":"2","nombre":"FIGURAS GEOMETRICAS — PAISAJE / ¿DONDE ES LA FIESTA?","producto":"Descripcion de paisaje escrita + mural de la clase sobre fiestas del mundo","len":{"titulo":"¿DONDE ES LA FIESTA? — Describir un paisaje","tarea":"Describir un paisaje con detalle siguiendo un orden logico, usando marcadores temporales, adjetivos de lugar y vocabulario de celebraciones","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 8.3.b"},"mat":{"titulo":"UNA TARDE DE JUEGOS — Disenar robot con figuras geometricas","tarea":"El alumnado usara el tangram para disenar un robot con figuras geometricas, identificando poligonos, circunferencia y circulo, y aplicando sumas llevando.","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 2.3.b, 3.1.b, 3.2.b, 4.1.b, 5.1.b, 6.1.b, 6.2.b"}},"ABRIL":{"trim":"3","nombre":"CALCULADORA — SUMAS Y RESTAS DE COMPRA / TEXTO INSTRUCTIVO","producto":"Texto instructivo + resolución de operaciones de compra con calculadora","len":{"titulo":"¿TE INTERESA LA CIENCIA? — Texto instructivo","tarea":"Elaborar un texto instructivo describiendo las fases de un proceso conocido paso a paso, usando vocabulario de inventos y conectores de secuencia","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 8.3.b"},"mat":{"titulo":"VAMOS DE COMPRAS — Usar calculadora en situaciones de compra","tarea":"El alumnado usara la calculadora para resolver sumas y restas en situaciones de compra con monedas y billetes, identificando cada funcion de la calculadora.","criterios":"1.1.b, 1.2.b, 2.2.b, 3.2.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 7.1.b, 7.2.b"}},"MAYO":{"trim":"3","nombre":"HORARIO DEL COLEGIO Y ACTIVIDADES DIARIAS / CORREO ELECTRÓNICO","producto":"Correo electrónico + horario de actividades diarias con tiempos calculados","len":{"titulo":"¿LO HABLAMOS? — Correo electronico","tarea":"Escribir un correo electronico resolviendo un conflicto de forma dialogada, con sujeto, predicado y ortografia correcta, usando lenguaje no discriminatorio","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.3.b, 9.2.b, 10.1.b, 10.2.b"},"mat":{"titulo":"NUESTRA CLASE — Elaborar horario y calcular duraciones","tarea":"El alumnado calculara el tiempo de llegada al colegio y elaborara un horario diario completo, aplicando lectura de relojes, horas, minutos, simetrias y cuerpos geometricos.","criterios":"1.1.b, 1.2.b, 2.3.b, 4.1.b, 5.1.b, 5.2.b, 6.1.b, 6.2.b"}},"JUNIO":{"trim":"3","nombre":"PLANNING DE VERANO — CERTEZA Y AZAR / ELABORAR UNA NOTICIA","producto":"Noticia periodística + planning de verano con clasificación de probabilidad","len":{"titulo":"¿CONCURSAMOS? — Elaborar una noticia","tarea":"Elaborar una noticia con titular, cuerpo y estructura periodistica correcta sobre un hecho real o inventado relacionado con un concurso","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 7.1.b, 8.3.b, 9.2.b"},"mat":{"titulo":"ESTAMOS EN LA PLAYA — Planning de verano con certeza y azar","tarea":"El alumnado elaborara un planning de planes de verano clasificando actividades como seguras, posibles o imposibles, aplicando multiplicacion, repartos, doble y mitad.","criterios":"1.1.b, 1.2.b, 2.2.b, 3.2.b, 6.2.b"}}},"3":{"SEPTIEMBRE":{"trim":"1","nombre":"ÁRBOL GENEALÓGICO / (Lengua pendiente)","producto":"Texto poético sobre la amistad + árbol genealógico con datos numéricos","len":{"titulo":"PRESENTACIÓN DE UN/A AMIGO/A Y TEXTO POÉTICO SOBRE LA AMISTAD","tarea":"El alumnado elaborará una presentación oral de un amigo o amiga y redactará un texto poético relacionado con la amistad, aplicando recursos expresivos básicos del género poético y la revisión ortográfica.","criterios":"1.1.a, 1.2.a, 1.3.a, 2.1.a, 3.1.a, 3.2.a, 3.3.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 8.1.a, 8.2.a, 8.3.a, 9.2.a"},"mat":{"titulo":"CREAR UN ÁRBOL GENEALÓGICO","tarea":"El alumnado creará un árbol genealógico de su familia, aplicando el orden y la comparación de números naturales, la lectura de números ordinales y la representación de datos en un esquema visual.","criterios":"1.1.a, 1.2.a, 2.1.a, 2.2.a, 3.2.a, 4.1.a, 5.2.a, 6.1.a, 6.2.a"}},"OCTUBRE":{"trim":"1","nombre":"MEJORAS PARA EL COLEGIO / (Lengua pendiente)","producto":"Cartel elaborado + presupuesto de mejoras del colegio","len":{"titulo":"ELABORACIÓN DE UN CARTEL","tarea":"El alumnado elaborará un cartel informativo o publicitario sobre un tema de interés, seleccionando el mensaje principal, organizando la información visualmente y cuidando la ortografía y la presentación.","criterios":"1.1.a, 1.2.a, 1.3.a, 2.1.a, 3.1.a, 3.2.a, 3.3.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 8.1.a, 8.2.a, 8.3.a, 9.2.a"},"mat":{"titulo":"PRESUPUESTO PARA LAS MEJORAS DEL COLEGIO","tarea":"El alumnado elaborará un presupuesto para proponer mejoras en el colegio, calculando costes, comparando cantidades y tomando decisiones de gasto justificadas matemáticamente.","criterios":"1.1.a, 1.2.a, 2.1.a, 2.2.a, 3.2.a, 4.1.a, 5.2.a, 6.1.a, 6.2.a"}},"NOVIEMBRE":{"trim":"1","nombre":"EXCURSIÓN POR LA LOCALIDAD / (Lengua pendiente)","producto":"Programa de fiesta solidaria + plan de excursión con recorrido y horarios","len":{"titulo":"ELABORACIÓN DE UN PROGRAMA DE FIESTA SOLIDARIO","tarea":"El alumnado elaborará el programa de una fiesta solidaria del colegio, organizando los actos, escribiendo textos descriptivos e informativos y aplicando la estructura y el registro adecuados.","criterios":"1.1.a, 1.2.a, 1.3.a, 2.1.a, 3.1.a, 3.2.a, 3.3.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 8.1.a, 8.2.a, 8.3.a, 9.2.a"},"mat":{"titulo":"REALIZAR UNA EXCURSIÓN POR LA LOCALIDAD O CIUDAD","tarea":"El alumnado planificará una excursión por su localidad, calculando distancias con itinerarios, estimando tiempos con el reloj analógico y digital, y representando el recorrido en un plano.","criterios":"1.1.a, 1.2.a, 2.1.a, 2.2.a, 3.2.a, 4.1.a, 5.2.a, 6.1.a, 6.2.a"}},"DICIEMBRE":{"trim":"1","nombre":"CÁLCULO DE LA MERIENDA SALUDABLE / (Lengua pendiente)","producto":"Vídeo del programa del tiempo + merienda saludable con cantidades calculadas","len":{"titulo":"ELABORACIÓN DE UN PRONÓSTICO DEL TIEMPO — VÍDEO DEL PROGRAMA DEL TIEMPO","tarea":"El alumnado elaborará un pronóstico del tiempo y lo grabará en vídeo simulando un programa meteorológico, usando el lenguaje expositivo, el vocabulario específico y la presentación oral ante la cámara.","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 9.2.a"},"mat":{"titulo":"CÁLCULO DE LA MERIENDA SALUDABLE","tarea":"El alumnado calculará las cantidades y el coste de una merienda saludable para la clase, aplicando operaciones con números naturales y tomando decisiones de compra responsable.","criterios":"1.1.a, 1.2.a, 2.2.a, 6.2.a"}},"ENERO":{"trim":"2","nombre":"FIESTA DE CUMPLEAÑOS / (Lengua pendiente)","producto":"Biografía de personaje + organización de fiesta de cumpleaños con presupuesto","len":{"titulo":"ELABORAR UNA BIOGRAFÍA — TEXTO NARRATIVO","tarea":"El alumnado elaborará la biografía de un personaje relevante en formato de texto narrativo, organizando la información cronológicamente, usando la tercera persona y los tiempos verbales del pasado.","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 10.2.a"},"mat":{"titulo":"CÁLCULO DE LA FIESTA DE CUMPLEAÑOS","tarea":"El alumnado calculará todo lo necesario para organizar una fiesta de cumpleaños: número de invitados, cantidades de comida, costes y presupuesto total.","criterios":"1.1.a, 1.2.a, 2.1.a, 2.2.a, 6.2.a"}},"FEBRERO":{"trim":"2","nombre":"CAMPEONATO DE BALONCESTO / (Lengua pendiente)","producto":"Cartel anuncio + organización del campeonato con tablas y gráficas","len":{"titulo":"ELABORACIÓN DE UN CARTEL ANUNCIO","tarea":"El alumnado elaborará un cartel publicitario sobre un producto o servicio inventado, aplicando los elementos del texto persuasivo (eslogan, imagen, mensaje), el lenguaje visual y la revisión ortográfica.","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a"},"mat":{"titulo":"ORGANIZACIÓN DEL CAMPEONATO DE BALONCESTO","tarea":"El alumnado organizará un campeonato de baloncesto escolar, calculando resultados, elaborando tablas de clasificación, interpretando gráficas y usando el azar y la estadística sencilla.","criterios":"1.1.a, 1.2.a, 2.1.a, 6.2.a, 8.1.a, 8.2.a"}},"MARZO":{"trim":"2","nombre":"LISTA DE LA COMPRA / (Lengua pendiente)","producto":"Cuento escrito por el alumnado + lista de la compra con cálculos","len":{"titulo":"ESCRIBE UN TEXTO NARRATIVO — CUENTO","tarea":"El alumnado escribirá un cuento propio con inicio, nudo y desenlace, desarrollando personajes y escenarios, usando conectores temporales y aplicando los signos de puntuación y la ortografía trabajados.","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 8.2.a"},"mat":{"titulo":"CÁLCULO DE LA LISTA DE LA COMPRA","tarea":"El alumnado calculará la lista de la compra para un evento escolar, estimando cantidades, aplicando las cuatro operaciones y organizando los datos en un registro sistemático.","criterios":"1.1.a, 1.2.a, 2.1.a, 3.2.a, 4.1.a"}},"ABRIL":{"trim":"2","nombre":"HACER UNA INVITACIÓN / (Lengua pendiente)","producto":"Folleto informativo + invitación diseñada con elementos geométricos","len":{"titulo":"ELABORACIÓN DE UN FOLLETO","tarea":"El alumnado elaborará un folleto informativo sobre un lugar, evento o tema de interés, organizando la información con párrafos cortos, imágenes y texto sintético, aplicando el lenguaje descriptivo-informativo.","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 9.2.a"},"mat":{"titulo":"HACER UNA INVITACIÓN","tarea":"El alumnado diseñará y elaborará una invitación para un evento escolar, aplicando conceptos de geometría (figuras, simetrías), medidas y organización visual de la información.","criterios":"1.1.a, 2.1.a, 3.2.a, 4.1.a, 5.1.a"}},"MAYO":{"trim":"3","nombre":"MOCHILA PARA EL CAMPAMENTO / (Lengua pendiente)","producto":"Fichero de animales con textos informativos + lista de material de campamento","len":{"titulo":"ELABORACIÓN DE UN FICHERO DE ANIMALES — TEXTO INFORMATIVO","tarea":"El alumnado elaborará fichas informativas de distintos animales, investigando sus características, hábitat y comportamiento, y redactando textos expositivos con vocabulario específico y estructura clara.","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 8.2.a"},"mat":{"titulo":"CÁLCULO DE LAS COSAS DE UNA MOCHILA PARA UN CAMPAMENTO","tarea":"El alumnado calculará el peso y el volumen de los objetos necesarios para una mochila de campamento, comprobando que cumple los límites de peso y capacidad establecidos.","criterios":"1.1.a, 3.2.a, 4.1.a, 4.2.a, 5.2.a"}},"JUNIO":{"trim":"3","nombre":"FUNCIÓN DE TÍTERES CON CUERPOS GEOMÉTRICOS / (Lengua pendiente)","producto":"Entrevista escrita + función de títeres con cuerpos geométricos","len":{"titulo":"ELABORACIÓN DE UNA ENTREVISTA — TEXTO INFORMATIVO","tarea":"El alumnado elaborará una entrevista a un personaje conocido del entorno escolar o familiar, formulando preguntas pertinentes, recogiendo las respuestas por escrito y presentando el texto con el formato propio del género.","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 9.1.a"},"mat":{"titulo":"FUNCIÓN DE TÍTERES CON FIGURAS DE ANIMALES Y CUERPOS GEOMÉTRICOS","tarea":"El alumnado creará figuras de animales usando cuerpos geométricos (esferas, cubos, prismas, cilindros) para una función de títeres, identificando y describiendo las propiedades de cada figura tridimensional.","criterios":"1.1.a, 3.2.a, 4.1.a, 5.1.a"}}},"4":{"SEPTIEMBRE":{"trim":"1","nombre":"DISTANCIAS ENTRE CIUDADES / RETRATO DE MI FAMILIA","producto":"Retrato descriptivo familiar + estudio de distancias para planificar viaje","len":{"titulo":"EN FAMILIA — TEXTO DESCRIPTIVO (Retrato familiar)","tarea":"El alumnado elaborará un retrato escrito de su familia en forma de texto descriptivo, aplicando las convenciones del género, el vocabulario adecuado y las normas ortográficas trabajadas.","criterios":"1.1.b, 1.2.b, 1.3.b, 2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 8.1.b, 8.2.b"},"mat":{"titulo":"DE VIAJE POR EUROPA — NUMEROS GRANDES Y VALOR POSICIONAL","tarea":"El alumnado realizará un estudio de las distancias entre ciudades para organizar su propio viaje, aplicando el orden de magnitud de los números y estrategias de cálculo.","criterios":"1.1.b, 1.2.b, 2.2.b, 6.1.b, 6.2.b"}},"OCTUBRE":{"trim":"1","nombre":"PRESUPUESTO VIAJE A LA GRANJA / NOTAS DE AGRADECIMIENTO","producto":"Notas de agradecimiento + presupuesto detallado del viaje a la granja","len":{"titulo":"TE LO REGALO — NOTA DE AGRADECIMIENTO","tarea":"El alumnado redactará notas de agradecimiento en formato de texto informativo, usando las convenciones propias del género epistolar, el registro adecuado y la ortografía correcta.","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b"},"mat":{"titulo":"EN LA GRANJA ESCUELA — SUMA Y RESTA","tarea":"El alumnado elaborará el presupuesto de un viaje escolar a la granja, calculando costes, comparando precios y tomando decisiones de compra responsable.","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 6.2.b"}},"NOVIEMBRE":{"trim":"1","nombre":"ESTADÍSTICA DE LA PÁGINA WEB / ELABORACIÓN DE UN ANUNCIO","producto":"Anuncio publicitario + informe estadístico con gráficas de la página web","len":{"titulo":"CUANTO CUESTA — ELABORACION DE UN ANUNCIO","tarea":"El alumnado elaborará un anuncio publicitario en formato de texto informativo, identificando sus elementos clave (imagen, eslogan, mensaje), usando el registro persuasivo y las normas ortográficas.","criterios":"2.1.b, 3.1.b, 3.2.b, 3.3.b, 4.1.b, 5.1.b, 8.3.b, 9.2.b"},"mat":{"titulo":"LA PAGINA WEB DEL COLE — MULTIPLICACION","tarea":"El alumnado analizará los datos estadísticos de una página web escolar para elaborar gráficas, interpretar resultados y sacar conclusiones matemáticas.","criterios":"1.1.b, 1.2.b, 2.2.b, 3.2.b, 6.2.b"}},"DICIEMBRE":{"trim":"1","nombre":"LOGOTIPO DEL EQUIPO / ENTRADA EN UN BLOG","producto":"Entrada de blog del alumnado + logotipo del equipo con figuras geométricas","len":{"titulo":"ADONDE VAMOS — ENTRADA EN UN BLOG DE VIAJES","tarea":"El alumnado elaborará una entrada para un blog creado por el propio alumnado, aplicando las convenciones del género digital, el lenguaje adecuado al medio y la revisión ortográfica.","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 9.2.b"},"mat":{"titulo":"LLEGA EL TORNEO — ANGULOS PERIMETROS Y GEOMETRIA","tarea":"El alumnado diseñará el logotipo de su equipo de clase utilizando figuras geométricas, aplicando conceptos de simetría, proporciones y lenguaje matemático.","criterios":"1.1.b, 2.1.b, 3.2.b, 5.1.b, 6.2.b"}},"ENERO":{"trim":"2","nombre":"REPARTO DE TAREAS DE COCINA / ELABORACIÓN DE UNA SOLICITUD","producto":"Solicitud formal escrita + plan de reparto de tareas de cocina con cálculos","len":{"titulo":"NOS UNIMOS — ELABORACION DE UNA SOLICITUD","tarea":"El alumnado elaborará una solicitud formal dirigida a la dirección del centro o a una institución, aplicando la estructura y el registro propios de los textos administrativos y las normas de cortesía.","criterios":"2.1.b, 3.1.b, 3.2.b, 3.3.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 8.3.b, 9.2.b, 10.1.b, 10.2.b"},"mat":{"titulo":"PONEMOS LA MESA — DIVISION Y REPARTO","tarea":"El alumnado organizará el reparto de tareas de cocina en equipo, aplicando las cuatro operaciones para gestionar cantidades, tiempos y distribuciones equitativas.","criterios":"1.1.b, 1.2.b, 2.1.b, 2.3.b, 6.2.b, 8.1.b, 8.2.b"}},"FEBRERO":{"trim":"2","nombre":"PRESUPUESTO DE DECORACIÓN DE LA CLASE / ELABORACIÓN DE UN CÓMIC","producto":"Cómic elaborado por el alumnado + presupuesto de decoración de clase","len":{"titulo":"DEMASIADA TELE — ELABORACION DE UN COMIC","tarea":"El alumnado elaborará un cómic con personajes, diálogos y secuencia narrativa propia, aplicando los recursos expresivos del género (viñetas, globos, onomatopeyas) y la revisión ortográfica.","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 8.3.b, 9.1.b, 9.2.b, 10.2.b"},"mat":{"titulo":"UN NUEVO COLEGIO — DIVISION PROBLEMAS COTIDIANOS","tarea":"El alumnado elaborará el presupuesto para decorar la clase, comparando precios, haciendo estimaciones y tomando decisiones de compra responsable con un presupuesto limitado.","criterios":"1.1.b, 1.2.b, 2.1.b, 2.3.b, 3.1.b, 8.1.b, 8.2.b"}},"MARZO":{"trim":"2","nombre":"FIESTA SORPRESA — REPARTO DEL DINERO / ELABORACIÓN DE UNA NOTICIA","producto":"Noticia periodística escolar + organización de fiesta con reparto económico","len":{"titulo":"ESO ES VERDAD — ELABORACION DE UNA NOTICIA","tarea":"El alumnado elaborará una noticia periodística sobre un hecho de actualidad o del entorno escolar, aplicando la estructura de la pirámide invertida, el titular, la entradilla y el cuerpo del texto.","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 8.1.b, 8.3.b, 9.1.b, 9.2.b, 10.2.b"},"mat":{"titulo":"LA FIESTA SORPRESA — FRACCIONES Y EUROS","tarea":"El alumnado organizará una fiesta sorpresa a un compañero/a, gestionando el presupuesto y representando con colores el reparto del dinero para cada parte de la fiesta.","criterios":"1.1.b, 1.2.b, 2.1.b, 4.1.b, 6.1.b, 6.2.b"}},"ABRIL":{"trim":"2","nombre":"DISEÑO DE CABAÑA — CAPACIDAD Y COSTE / CARTEL CON RECOMENDACIONES","producto":"Cartel de recomendaciones + diseño de cabaña con cálculo de capacidad y coste","len":{"titulo":"QUEREMOS CIUDADES MAS SANAS — CARTEL CON RECOMENDACIONES","tarea":"El alumnado elaborará un cartel con recomendaciones sobre un tema de interés (salud, medioambiente, convivencia), usando el texto instructivo, el lenguaje visual y la síntesis de información.","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 8.3.b, 9.2.b, 10.2.b"},"mat":{"titulo":"EXCURSION AL CAMPO — CUERPOS GEOMETRICOS","tarea":"El alumnado diseñará y dibujará una cabaña, inventando su capacidad y calculando el coste de su construcción usando propiedades de figuras geométricas y medidas.","criterios":"1.1.b, 3.2.b, 4.1.b, 5.1.b"}},"MAYO":{"trim":"3","nombre":"TIEMPO ENTRE PARADAS DE MAPA / DECÁLOGO DEPORTIVO","producto":"Decálogo deportivo + mapa de tiempos de transporte con cálculos de recorrido","len":{"titulo":"ECHAMOS UNA CARRERA — TEXTO NORMATIVO (Decalogo deportivo)","tarea":"El alumnado elaborará un decálogo deportivo en forma de texto normativo, usando el imperativo o el infinitivo, ordenando las normas por importancia y aplicando el registro formal y la corrección ortográfica.","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 5.1.b, 6.1.b, 6.3.b, 8.3.b, 9.2.b, 10.2.b"},"mat":{"titulo":"UN VIAJE EN METRO — TIEMPO Y MEDIDAS","tarea":"El alumnado calculará los tiempos que se tarda de una parada a otra en un mapa de transporte, utilizando instrumentos de medida y representaciones gráficas.","criterios":"1.1.b, 3.2.b, 4.1.b, 4.2.b, 5.2.b, 7.1.b, 7.2.b"}},"JUNIO":{"trim":"3","nombre":"CÁLCULO DE INGREDIENTES — ANÁLISIS DE ENVASES / CARTEL SOBRE LA IGUALDAD","producto":"Cartel sobre la igualdad + lista de la compra con ingredientes calculados según envases","len":{"titulo":"PUEDE HACERLO CUALQUIERA — CARTEL SOBRE LA IGUALDAD","tarea":"El alumnado diseñará un cartel sobre la igualdad de género o la igualdad de oportunidades, seleccionando el mensaje principal, el eslogan, las imágenes y el texto persuasivo, con conciencia del valor social del lenguaje.","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.3.b, 7.1.b, 8.3.b, 9.2.b, 10.1.b"},"mat":{"titulo":"FIESTA FIN DE CURSO — MEDIDAS CAPACIDAD Y MASA","tarea":"El alumnado calculará los ingredientes que se necesitan comprar para una receta, analizando cómo vienen envasados los productos y ajustando las cantidades a los envases disponibles.","criterios":"1.1.b, 3.2.b, 4.1.b, 4.2.b, 5.2.b"}}},"5":{"SEPTIEMBRE":{"trim":"1","nombre":"¿CUÁNTOS BEBÉS NACEN CADA AÑO? / ¿CUIDAMOS LOS MARES?","producto":"Cartel océanos + estudio estadístico de nacimientos por CCAA","len":{"titulo":"¿CUIDAMOS LOS MARES? — Cartel y encuesta sobre oceanos","tarea":"Elaborar un cartel sobre el Dia de los Oceanos y realizar una encuesta sobre la importancia de los oceanos y la vida marina para su exposicion al resto de la clase","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 7.1.a, 7.2.a"},"mat":{"titulo":"¿CUANTOS BEBES NACEN CADA ANO? — Nacimientos por CC.AA.","tarea":"Estudio de nacimientos por comunidad autonoma con elaboracion de grafico comparativo con los de Andalucia o la localidad propia","criterios":"1.2.a, 2.1.a, 2.2.a, 6.1.a, 6.2.a"}},"OCTUBRE":{"trim":"1","nombre":"¿CÓMO NOS DESPLAZAMOS? / ¿PARA QUÉ VAMOS AL COLEGIO?","producto":"Periódico escolar con noticia + infografía de medios de transporte","len":{"titulo":"¿PARA QUE VAMOS AL COLEGIO? — Noticia del colegio","tarea":"Elaborar una noticia sobre lo sucedido en el colegio teniendo en cuenta las efemerides del mes (Diabetes, Derechos del Nino...) y presentarla como periodistas","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 6.3.a"},"mat":{"titulo":"¿COMO NOS DESPLAZAMOS? — Estadistica de medios de transporte","tarea":"Estudio del uso de medios de transporte en Espana y CC.AA. con elaboracion de grafico y exposicion comparativa de resultados","criterios":"1.1.a, 1.2.a, 2.1.a, 2.2.a, 6.1.a, 6.2.a"}},"NOVIEMBRE":{"trim":"1","nombre":"¿CUÁNTOS SOMOS EN PRIMARIA? / ¡NO ES JUSTO!","producto":"Reclamación oral + estudio estadístico del sistema educativo","len":{"titulo":"¡NO ES JUSTO! — Reclamacion escrita","tarea":"Presentar por escrito una reclamacion ante algo que ha parecido injusto, relacionandola con las efemerides del mes (Derechos del Nino, Dia Escuela Inclusiva)","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 7.1.a, 7.2.a, 8.1.a"},"mat":{"titulo":"¿CUANTOS SOMOS EN PRIMARIA? — Centros y alumnado","tarea":"Estudio del numero de estudiantes, centros y grupos de Primaria en la CC.AA. con elaboracion de grafico estadistico comparativo","criterios":"1.1.a, 1.2.a, 2.1.a, 6.1.a, 6.2.a"}},"DICIEMBRE":{"trim":"1","nombre":"¿GASTAMOS BIEN EL DINERO? / ¿RESPETAMOS A LOS ANIMALES?","producto":"Cuento de animales en peligro + informe de gastos familiares","len":{"titulo":"¿RESPETAMOS A LOS ANIMALES? — Cuento sobre extincion","tarea":"Elaborar un cuento sobre animales en peligro de extincion haciendo enfasis en aquellos que ayudan a personas con discapacidad","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 6.3.a"},"mat":{"titulo":"¿GASTAMOS BIEN EL DINERO? — Relojes y geometria","tarea":"Estudio del numero de personas que usan relojes circulares o rectangulares; elaboracion de grafico e identificacion de simetrias y figuras geometricas en los relojes","criterios":"1.1.a, 5.1.a, 5.2.a, 6.1.a, 6.2.a"}},"ENERO":{"trim":"2","nombre":"¿QUÉ ANIMALES ESTÁN EN PELIGRO? / ¿CÓMO ES TU LOCALIDAD?","producto":"Cuento de animales en extinción + campaña de concienciación con gráficas","len":{"titulo":"¿COMO ES TU LOCALIDAD? — Folleto turistico","tarea":"Elaborar un folleto turistico de la localidad (monumentos, entorno, historia, fiestas, gastronomia) para posterior presentacion y exposicion oral ante el grupo","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 7.1.a, 7.2.a, 8.2.a, 8.3.a"},"mat":{"titulo":"¿QUE ANIMALES ESTAN EN PELIGRO? — Extincion por CC.AA.","tarea":"Estudio del numero de animales en peligro de extincion en Espana y la CC.AA. propia; elaboracion de grafico comparativo con exposicion de datos","criterios":"1.1.a, 1.2.a, 2.1.a, 6.1.a, 6.2.a"}},"FEBRERO":{"trim":"2","nombre":"¿CUÁNTAS PERSONAS VIVIMOS EN ESPAÑA? / ¿QUÉ DEPORTE HACES?","producto":"Folleto turístico local + mapa de población de España por CCAA","len":{"titulo":"¿QUE DEPORTE HACEMOS? — Retrato de deportista","tarea":"Elaborar un retrato de un deportista famoso y organizar una competicion deportiva relacionada con las efemerides del mes de febrero","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 6.3.a, 10.1.a, 10.2.a"},"mat":{"titulo":"¿CUANTAS PERSONAS VIVIMOS EN ESPANA? — Habitantes por municipios","tarea":"Estudio del numero de habitantes por municipios en cada CC.AA.; elaboracion de grafico estadistico y exposicion comparativa de datos de poblacion","criterios":"1.1.a, 1.2.a, 2.1.a, 6.1.a, 6.2.a"}},"MARZO":{"trim":"2","nombre":"¿PRACTICAMOS DEPORTE? / ¿TE GUSTA LA MÚSICA?","producto":"Anuncio academia de música + infografía deportiva estadística","len":{"titulo":"¿TE GUSTA LA MUSICA? — Anuncio academia y mural poetico","tarea":"Elaborar un anuncio para una academia de musica y un mural poetico con biografias de poetas andaluces","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 7.1.a, 7.2.a, 8.1.a, 9.1.a, 9.2.a"},"mat":{"titulo":"¿PRACTICAMOS DEPORTE? — Tiempo y deportes practicados","tarea":"Estudio del tiempo dedicado a deportes practicados para comparar con propios habitos; elaboracion de grafico estadistico y exposicion de resultados","criterios":"1.1.a, 1.2.a, 2.1.a, 2.2.a, 4.1.a, 6.1.a, 6.2.a"}},"ABRIL":{"trim":"3","nombre":"¿CUIDAMOS NUESTRA ALIMENTACIÓN? / ¿QUÉ QUIERES SER?","producto":"Feria de profesiones + pirámide alimentaria con datos de consumo","len":{"titulo":"¿QUE QUIERES SER? — Encuesta y recital de poesia","tarea":"Elaborar una encuesta a distintos profesionales y organizar un programa de recital de poesia con las profesiones como tema principal","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 7.1.a, 7.2.a, 8.1.a, 10.1.a, 10.2.a"},"mat":{"titulo":"¿CUIDAMOS NUESTRA ALIMENTACION? — Nutricion y estadistica","tarea":"Estudio sobre datos de alimentacion y nutricion; elaboracion de grafico comparativo y propuesta de dieta equilibrada con exposicion de resultados","criterios":"1.1.a, 2.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.2.a, 8.1.a, 8.2.a"}},"MAYO":{"trim":"3","nombre":"¿A QUÉ DEDICAMOS NUESTRO TIEMPO? / ¡QUÉ VALIENTE!","producto":"Cómic y juego de mesa + gráficas del uso del tiempo","len":{"titulo":"¡QUE VALIENTE! — Comic en equipo y juego literario","tarea":"Elaborar un comic en equipo e inventar un juego de mesa literario con tarjetas de preguntas y respuestas; exponer ambos proyectos en clase","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 7.1.a, 7.2.a, 8.1.a"},"mat":{"titulo":"¿A QUE DEDICAMOS NUESTRO TIEMPO? — Actividades no remuneradas","tarea":"Estudio del tiempo dedicado a actividades no remuneradas; comparativa con los propios habitos y elaboracion de grafico estadistico con exposicion","criterios":"1.1.a, 2.1.a, 3.2.a, 4.1.a, 4.2.a, 6.2.a, 7.1.a, 7.2.a"}},"JUNIO":{"trim":"3","nombre":"¿DESPERDICIAMOS MUCHA COMIDA? / ¿DE DÓNDE ERES?","producto":"Exposición intercultural + informe sobre desperdicio alimentario","len":{"titulo":"¿DE DONDE ERES? — Folleto exposicion intercultural","tarea":"Elaborar un folleto para una exposicion intercultural considerando las nacionalidades presentes en el centro y preparar una presentacion oral multicultural","criterios":"2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 5.1.a, 6.1.a, 6.2.a, 6.3.a"},"mat":{"titulo":"¿DESPERDICIAMOS MUCHA COMIDA? — Alimentos desperdiciados","tarea":"Estudio de datos sobre alimentos desperdiciados; comparativa con habitos propios y elaboracion de grafico estadistico con propuestas de reduccion de desperdicio","criterios":"1.1.a, 2.1.a, 3.1.a, 3.2.a, 4.1.a, 4.2.a, 6.2.a"}}},"6":{"OCTUBRE":{"trim":"1","nombre":"¿DÓNDE VIVE MÁS GENTE? / ¿PROTEGEMOS LOS BOSQUES?","producto":"Informe medioambiental + gráficos estadísticos de población","len":{"titulo":"¿PROTEGEMOS LOS BOSQUES? — Atlas de botanica","tarea":"Investigar plantas o arboles, redactar descripciones en grupo, corregirlas entre todos y elaborar un atlas de botanica con portada y encuadernacion","criterios":"2.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 6.3.b"},"mat":{"titulo":"¿DONDE VIVE MAS GENTE? — Estudio poblacion y graficos","tarea":"Estudio de regiones donde viven mas personas; elaboracion de grafico de habitantes de Andalucia y la localidad en los ultimos anos con exposicion de resultados","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 6.1.b, 6.2.b"}},"NOVIEMBRE":{"trim":"1","nombre":"¿DÓNDE ESTÁ ESE LUGAR? / LA UNIÓN HACE LA FUERZA","producto":"Ruta literaria local + mapa de coordenadas geográficas","len":{"titulo":"LA UNION HACE LA FUERZA — Ruta literaria y campana solidaria","tarea":"Elaborar y presentar una ruta literaria por la localidad como guia turistico y realizar una campana solidaria sobre el uso responsable de la tecnologia","criterios":"1.1.b, 2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 8.3.b"},"mat":{"titulo":"¿DONDE ESTA ESE LUGAR? — Posiciones geograficas y graficos","tarea":"Estudio de posiciones de paises aplicando coordenadas y sistemas de referencia; elaboracion de grafico comparativo de cada pais con exposicion oral","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 6.1.b, 6.2.b"}},"DICIEMBRE":{"trim":"1","nombre":"¿QUÉ FRUTAS HAY AHORA? / ¿QUÉ DICEN LOS ANIMALES?","producto":"Calendario de frutas de temporada + noticias sobre animales","len":{"titulo":"¿QUE DICEN LOS ANIMALES? — Noticia con animales","tarea":"Inventar y redactar una noticia protagonizada por animales siguiendo el modelo periodistico y presentarla oralmente al resto de la clase como un reportero","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 6.3.b"},"mat":{"titulo":"¿QUE FRUTAS HAY AHORA? — Simetrias y frutas de temporada","tarea":"Estudio de frutas segun estaciones y su recoleccion; elaboracion de grafico de frutas correspondientes y trabajo de ejes de simetria con cada fruta","criterios":"1.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 5.2.b, 6.1.b, 6.2.b"}},"ENERO":{"trim":"2","nombre":"¿EN QUÉ GASTAMOS EL DINERO? / ¿QUIÉN ES ARTISTA?","producto":"Informe económico familiar + biografía de artista y karaoke poético","len":{"titulo":"¿QUIEN ES ARTISTA? — Biografia de artista y karaoke poetico","tarea":"Elaborar la biografia de un artista elegido y exponerla al resto; organizar un karaoke poetico recitando textos liricos con entonacion y expresividad","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 7.1.b, 7.2.b, 8.2.b, 8.3.b"},"mat":{"titulo":"¿EN QUE GASTAMOS EL DINERO? — Gastos del hogar y estadistica","tarea":"Estudio de los gastos habituales del hogar comparados con la media de la comunidad autonoma; elaboracion de grafico de gastos con exposicion de resultados","criterios":"1.1.b, 1.2.b, 2.1.b, 6.1.b, 6.2.b"}},"FEBRERO":{"trim":"2","nombre":"¿CUÁNTO VIAJAMOS? / ¿QUEDA AGUA?","producto":"Propuesta de viaje con presupuesto + artículo de opinión sobre el agua","len":{"titulo":"¿QUEDA AGUA? — Articulo de opinion y carteles sobre agua","tarea":"Redactar un articulo de opinion argumentado sobre el uso responsable del agua y elaborar carteles de concienciacion para el ahorro hidrico","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 6.3.b, 10.1.b, 10.2.b"},"mat":{"titulo":"¿CUANTO VIAJAMOS? — Estudio de viajes y porcentajes","tarea":"Estudio de gastos y numero de viajes por vacaciones incluyendo duracion media; elaboracion de grafico comparativo con exposicion de datos obtenidos","criterios":"1.1.b, 1.2.b, 2.1.b, 2.2.b, 6.1.b, 6.2.b"}},"MARZO":{"trim":"2","nombre":"¿CUÁNTA AGUA GASTAMOS? / ¿NOS CUIDAMOS?","producto":"Propuestas de ahorro de agua + entrevista sobre salud y obra de teatro","len":{"titulo":"¿NOS CUIDAMOS? — Entrevista a profesional de salud y obra teatral","tarea":"Elaborar y realizar una entrevista a un profesional de la salud (nutricionista, fisioterapeuta, dentista) y representar una obra teatral sobre habitos saludables","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 7.1.b, 7.2.b, 8.1.b, 9.1.b, 9.2.b"},"mat":{"titulo":"¿CUANTA AGUA GASTAMOS? — Estadistica del consumo de agua","tarea":"Estudio del consumo de agua en los hogares comparado con el de casa propia; elaboracion de grafico y propuesta de medidas para el ahorro hidrico","criterios":"1.1.b, 1.2.b, 2.1.b, 2.3.b, 4.1.b, 6.1.b, 6.2.b"}},"ABRIL":{"trim":"3","nombre":"¿SABES DE ORDENADORES? / ¿CÓMO NOS DIVERTIMOS?","producto":"Informe de habilidades tecnológicas + crónica de espectáculo","len":{"titulo":"¿COMO NOS DIVERTIMOS? — Cronica sobre un espectaculo","tarea":"Elaborar una cronica periodistica sobre un espectaculo vivido o imaginado, aplicando la estructura del genero; celebrar el Dia del Libro con juegos literarios","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 6.3.b"},"mat":{"titulo":"¿SABES DE ORDENADORES? — Porcentajes y habilidades digitales","tarea":"Estudio de porcentajes de habilidades tecnologicas en Espana comparado con la experiencia propia; elaboracion de grafico y exposicion de datos estadisticos","criterios":"1.1.b, 1.2.b, 2.1.b, 4.1.b, 6.1.b, 6.2.b, 8.1.b, 8.2.b"}},"MAYO":{"trim":"3","nombre":"¿CUÁNTA GENTE VIVE AHÍ? / ¡QUEREMOS APRENDER!","producto":"Gráficas comparativas de población + diario personal y álbum de greguerías","len":{"titulo":"¡QUEREMOS APRENDER! — Pagina de diario y album de greguerias","tarea":"Elaborar una pagina de diario personal y confeccionar en grupo un album de greguerias para exponer en clase coincidiendo con el Dia del Libro","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 7.1.b, 7.2.b, 8.1.b, 10.1.b, 10.2.b"},"mat":{"titulo":"¿CUANTA GENTE VIVE AHI? — Poblacion y areas urbanas","tarea":"Estudio de extension y poblacion de paises con areas urbanas mas pobladas; comparativa con datos del propio pais, ciudad o localidad y elaboracion de graficos","criterios":"1.1.b, 2.1.b, 3.2.b, 4.1.b, 4.2.b, 6.2.b, 8.1.b, 8.2.b"}},"JUNIO":{"trim":"3","nombre":"¿HAY BECAS SUFICIENTES? / ¿COMEMOS SANOS?","producto":"Informe estadístico de becas + libro de recetas de cocina andaluza","len":{"titulo":"¿COMEMOS SANOS? — Libro de recetas de cocina andaluza","tarea":"Elaborar un libro de recetas de cocina andaluza con presentacion al alumnado; opcionalmente, adaptarlo a un libro de recetas europeas para el Dia de Europa","criterios":"2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 5.1.b, 6.1.b, 6.2.b, 6.3.b"},"mat":{"titulo":"¿HAY BECAS SUFICIENTES? — Gastos en educacion y becas","tarea":"Estudio de datos de gastos en becas y educacion segun infografia; comparativa con gastos educativos propios y elaboracion de grafico con exposicion de resultados","criterios":"1.1.b, 2.1.b, 3.1.b, 3.2.b, 4.1.b, 4.2.b, 6.2.b"}}}};
+
+const VOCAB = {
+"1":{
+ "OCTUBRE":["pirata","barco","tesoro","isla","mapa","deseo","brújula","catalejo"],
+ "NOVIEMBRE":["mar","ola","alegría","miedo","sorpresa","tristeza","calma","valiente"],
+ "DICIEMBRE":["puerto","faro","ayuda","nota","poema","rima","amigo","favor"],
+ "ENERO":["pez","plata","menú","plato","postre","bebida","receta","sabor"],
+ "FEBRERO":["rescate","invitación","fiesta","fecha","lugar","hora","regalo","celebrar"],
+ "MARZO":["cigarra","hormiga","cartel","concierto","música","trabajar","guardar","invierno"],
+ "ABRIL":["selva","norma","respeto","compartir","turno","cuidar","convivir","equipo"],
+ "MAYO":["paso","primero","después","final","mezclar","cortar","pegar","instrucción"],
+ "JUNIO":["mago","magia","diario","recuerdo","verano","semana","contar","secreto"]
+},
+"2":{
+ "SEPTIEMBRE":["descripción","pelo","ojos","alto","bajo","simpático","carácter","aspecto"],
+ "OCTUBRE":["aprender","curioso","amable","tímido","alegre","paciente","describir","cualidad"],
+ "NOVIEMBRE":["cómic","viñeta","bocadillo","salvaje","doméstico","pelaje","plumas","manada"],
+ "ENERO":["viaje","maleta","personaje","principio","aventura","camino","mapa","destino"],
+ "FEBRERO":["juego","regla","equipo","ganar","perder","final","desenlace","premio"],
+ "MARZO":["paisaje","montaña","río","valle","horizonte","brillante","tranquilo","colorido"],
+ "ABRIL":["experimento","material","paso","mezcla","resultado","observar","medir","anotar"],
+ "MAYO":["correo","mensaje","asunto","saludo","despedida","enviar","responder","firma"],
+ "JUNIO":["noticia","titular","periodista","entrevista","suceso","ocurrir","informar","público"]
+},
+"3":{
+ "SEPTIEMBRE":["amistad","compañero","confianza","verso","estrofa","rima","cariño","lealtad"],
+ "OCTUBRE":["cartel","anuncio","eslogan","imagen","llamativo","información","público","mensaje"],
+ "NOVIEMBRE":["solidario","programa","actuación","horario","colaborar","donar","causa","voluntario"],
+ "DICIEMBRE":["pronóstico","temperatura","borrasca","despejado","nublado","precipitación","viento","grados"],
+ "ENERO":["biografía","nacer","infancia","logro","famoso","época","fallecer","personaje"],
+ "FEBRERO":["producto","marca","oferta","convencer","cliente","precio","calidad","publicidad"],
+ "MARZO":["narrador","protagonista","escenario","nudo","desenlace","diálogo","misterio","fantástico"],
+ "ABRIL":["folleto","plano","visita","monumento","recorrido","atracción","guía","turista"],
+ "MAYO":["especie","hábitat","alimentación","mamífero","reptil","vertebrado","reproducción","característica"],
+ "JUNIO":["entrevista","pregunta","respuesta","entrevistado","opinión","grabar","micrófono","reportaje"]
+},
+"4":{
+ "SEPTIEMBRE":["retrato","familiar","generación","parecido","rasgo","generoso","responsable","personalidad"],
+ "OCTUBRE":["agradecer","detalle","gesto","sincero","aprecio","cortesía","emocionar","dedicar"],
+ "NOVIEMBRE":["consumidor","rebaja","gratuito","garantía","exagerar","eslogan","anunciar","producto"],
+ "DICIEMBRE":["blog","entrada","publicar","comentario","destino","alojamiento","excursión","recomendación"],
+ "ENERO":["solicitud","petición","firma","motivo","dirigirse","formal","respuesta","plazo"],
+ "FEBRERO":["pantalla","programa","audiencia","onomatopeya","viñeta","exceso","costumbre","entretener"],
+ "MARZO":["veraz","fuente","comprobar","rumor","suceso","redactar","objetivo","actualidad"],
+ "ABRIL":["saludable","contaminación","peatón","transporte","reciclar","zona verde","ruido","bienestar"],
+ "MAYO":["decálogo","deportividad","esfuerzo","rival","respeto","constancia","superación","juego limpio"],
+ "JUNIO":["igualdad","derecho","oportunidad","discriminar","estereotipo","respeto","capaz","justicia"]
+},
+"5":{
+ "SEPTIEMBRE":["océano","encuesta","contaminación","residuo","especie","proteger","dato","porcentaje"],
+ "OCTUBRE":["titular","redacción","entradilla","declaración","testigo","informar","suceso","actualidad"],
+ "NOVIEMBRE":["reclamación","queja","derecho","consumidor","exigir","motivo","formal","solución"],
+ "DICIEMBRE":["extinción","amenaza","hábitat","furtivo","conservación","especie","refugio","proteger"],
+ "ENERO":["patrimonio","monumento","gastronomía","tradición","visitante","ruta","alojamiento","festividad"],
+ "FEBRERO":["trayectoria","disciplina","entrenamiento","hazaña","récord","superación","humildad","constancia"],
+ "MARZO":["melodía","ritmo","estrofa","verso","metáfora","compás","armonía","recital"],
+ "ABRIL":["profesión","vocación","oficio","habilidad","formación","futuro","entrevista","aspiración"],
+ "MAYO":["valentía","hazaña","heroína","temor","arriesgar","decisión","superar","admirar"],
+ "JUNIO":["intercultural","costumbre","tradición","origen","diversidad","convivencia","respeto","riqueza"]
+},
+"6":{
+ "OCTUBRE":["botánica","ecosistema","deforestación","autóctono","flora","reforestar","biodiversidad","atlas"],
+ "NOVIEMBRE":["solidaridad","campaña","colaboración","itinerario","causa","compromiso","recaudar","comunidad"],
+ "DICIEMBRE":["fauna","comportamiento","comunicación","instinto","investigación","hallazgo","divulgar","rigor"],
+ "ENERO":["trayectoria","obra","inspiración","reconocimiento","talento","exposición","legado","creatividad"],
+ "FEBRERO":["opinión","argumento","sequía","escasez","consumo","responsable","tesis","concienciar"],
+ "MARZO":["prevención","hábito","bienestar","diagnóstico","profesional","escena","guion","personaje"],
+ "ABRIL":["crónica","espectáculo","escenario","público","crítica","aplauso","función","descripción"],
+ "MAYO":["greguería","metáfora","humor","ingenio","diario","reflexión","imagen","ocurrencia"],
+ "JUNIO":["gastronomía","ingrediente","elaboración","tradición","gazpacho","condimento","degustar","típico"]
+}
+}
+;
+/* Cómo trabajar las palabras según el ciclo (una actividad por semana, rotando) */
+const ACT_VOCAB = {
+ '1':['La decimos en voz alta y damos palmadas por sílabas','La dibujamos y la escribimos debajo del dibujo','La usamos en una frase dicha en voz alta','Jugamos con ella: mímica o veo-veo'],
+ '2':['La explicamos con nuestras palabras y la escribimos en una frase','Buscamos una palabra que signifique lo mismo y otra lo contrario','Escribimos su familia de palabras (flor → florero, florista…)','La usamos en un pequeño texto propio'],
+ '3':['La definimos y lo comprobamos en el diccionario','Buscamos sinónimos: ¿cuándo se usa cada uno?','La usamos en un texto propio y en el debate de la semana','Creamos una frase ingeniosa con ella']
+};
+/* Reparto de las palabras del mes entre semanas (2-3 por semana) */
+function vocabSemana(curso, mes, numSem, totalSem){
+  const lista = VOCAB[curso]?.[mes]||[];
+  if(!lista.length) return null;
+  const base = Math.floor(lista.length/totalSem), extra = lista.length%totalSem;
+  let ini=0;
+  for(let w=1; w<numSem; w++) ini += base + (w<=extra?1:0);
+  const n = base + (numSem<=extra?1:0);
+  return lista.slice(ini, ini+n);
+}
+function vocabChips(words, cls){
+  return `<div class="tagrow">${words.map(w=>`<span class="vword${cls?' '+cls:''}">🔤 ${w}</span>`).join('')}</div>`;
+}
+
+const CURSOS = ['1','2','3','4','5','6'];
+const CL = {'1':'1º de Primaria','2':'2º de Primaria','3':'3º de Primaria','4':'4º de Primaria','5':'5º de Primaria','6':'6º de Primaria'};
+const TRIMS = {'1':{label:'1º (Oct–Dic)',largo:'1er Trimestre',meses:['SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE']},
+               '2':{label:'2º (Ene–Mar)',largo:'2º Trimestre',meses:['ENERO','FEBRERO','MARZO']},
+               '3':{label:'3º (Abr–Jun)',largo:'3er Trimestre',meses:['ABRIL','MAYO','JUNIO']}};
+const MES_CORTO = {SEPTIEMBRE:'Sep',OCTUBRE:'Oct',NOVIEMBRE:'Nov',DICIEMBRE:'Dic',ENERO:'Ene',FEBRERO:'Feb',MARZO:'Mar',ABRIL:'Abr',MAYO:'May',JUNIO:'Jun'};
+const SEMANAS_MES = {SEPTIEMBRE:3,DICIEMBRE:2,JUNIO:3};
+const cicloKey = c => ['1','2'].includes(String(c))?'1':['3','4'].includes(String(c))?'2':'3';
+
+/* ══════════ TIPOS DE TEXTO EN LENGUAJE SENCILLO ══════════ */
+const TIPOS = {
+  cuento:      {emoji:'🧚', nombre:'Cuento o historia',        ej:'Un cuento, una fábula, una leyenda…', donde:'Biblioteca de aula · libro de Lengua · cuentos de la web de ARASAAC y «weeblebooks.com»'},
+  poema:       {emoji:'🎵', nombre:'Poema o rima',             ej:'Poesías, rimas, adivinanzas, trabalenguas', donde:'Antologías de la biblioteca (Gloria Fuertes, Lorca para niños) · el propio libro de Lengua'},
+  comic:       {emoji:'💬', nombre:'Cómic',                    ej:'Historietas con viñetas y bocadillos', donde:'Mortadelo, Zipi y Zape, Ástérix de la biblioteca · tira cómica de un periódico'},
+  noticia:     {emoji:'📰', nombre:'Noticia',                  ej:'Una noticia del periódico o una entrevista', donde:'«Junior Report» y la sección de niños de los periódicos · noticia local de Santa Fe adaptada'},
+  receta:      {emoji:'📋', nombre:'Instrucciones',            ej:'Una receta, las normas de un juego, pasos a seguir', donde:'Recetas de casa · normas de juegos del patio · instrucciones de un juego de mesa del cole'},
+  descripcion: {emoji:'🖼️', nombre:'Descripción',              ej:'Cómo es una persona, un animal, un paisaje…', donde:'Fichas de animales de la biblioteca · descripciones del libro de Lengua o Conocimiento del Medio'},
+  carta:       {emoji:'✉️', nombre:'Carta, nota o mensaje',    ej:'Una carta, una invitación, una lista, un WhatsApp', donde:'Escríbela tú misma/o (¡2 minutos!): una nota del cole, una invitación de cumple, una carta de un personaje'},
+  informativo: {emoji:'🔬', nombre:'Texto que enseña algo',    ej:'Un texto sobre animales, planetas, historia…', donde:'Libro de Conocimiento del Medio · «National Geographic Kids» · enciclopedias de la biblioteca'},
+  opinion:     {emoji:'🗣️', nombre:'Texto de opinión',         ej:'"Yo pienso que…" — dar argumentos a favor o en contra', donde:'Cartas al director adaptadas · reseñas de libros/pelis escritas por otros niños · escríbela tú como modelo'},
+  teatro:      {emoji:'🎭', nombre:'Teatro',                   ej:'Diálogos para leer con personajes y voces', donde:'Obras cortas de la biblioteca · convertir un cuento conocido en diálogo (lo hace la clase contigo)'},
+  infografia:  {emoji:'📊', nombre:'Texto con imágenes y datos',ej:'Una infografía, un cartel, un folleto, un vídeo', donde:'Carteles del propio cole · folletos del ayuntamiento o del médico · infografías de libros de texto'}
+};
+/* Qué tipos se rotan en cada ciclo */
+const TIPOS_CICLO = {
+  '1':['cuento','poema','receta','descripcion','comic','carta','informativo','teatro'],
+  '2':['cuento','informativo','poema','receta','descripcion','noticia','carta','teatro'],
+  '3':['cuento','noticia','informativo','opinion','poema','infografia','receta','teatro']
+};
+/* Qué se pide al alumnado cada semana (progresión), en fácil */
+const FOCO_SEM = {
+  '1':[
+    {t:'Entender lo que dice el texto', e:'Preguntas directas: ¿quién?, ¿qué?, ¿dónde?'},
+    {t:'Entender el texto + palabras nuevas', e:'Igual que la semana 1, añadiendo vocabulario'},
+    {t:'Empezar a "leer entre líneas"', e:'Cosas que el texto no dice pero se pueden adivinar'},
+    {t:'Leer entre líneas + crear algo', e:'Un dibujo, otro final, contar la historia…'}],
+  '2':[
+    {t:'Entender lo que dice el texto', e:'Ideas principales: ¿de qué va?'},
+    {t:'Leer entre líneas', e:'Deducir cosas que el texto no dice directamente'},
+    {t:'Leer entre líneas + vocabulario', e:'Deducir el significado de palabras por el contexto'},
+    {t:'Leer entre líneas + dar opinión', e:'¿Qué te ha parecido? ¿Por qué?'}],
+  '3':[
+    {t:'Entender + leer entre líneas', e:'Ideas principales y deducciones'},
+    {t:'Leer entre líneas', e:'Deducciones más profundas: intenciones, causas…'},
+    {t:'Opinar sobre el texto', e:'¿Estás de acuerdo? ¿Es fiable? ¿Qué pretende?'},
+    {t:'Opinar y debatir', e:'Defender la opinión con argumentos, debate en clase'}]
+};
+
+/* Adivinar el tipo de texto del mes según la temática del libro */
+function inferirTipo(t,ta){
+  const s=((t||'')+' '+(ta||'')).toLowerCase();
+  if(/poem|poétic|rima|verso|adivinanz|trabalengua|líric/.test(s)) return 'poema';
+  if(/cómic|comic|viñeta/.test(s)) return 'comic';
+  if(/cuento|fábula|leyenda|aventura|personaje|novel/.test(s)) return 'cuento';
+  if(/noticia|crónica|reportaje|entrevista|periodístic/.test(s)) return 'noticia';
+  if(/instruccio|receta|norma|manual|pasos|procediment/.test(s)) return 'receta';
+  if(/descrip|describir|retrato|paisaje/.test(s)) return 'descripcion';
+  if(/diario|carta|invitaci|nota|mensaje|correo|listado/.test(s)) return 'carta';
+  if(/exposi|explic|científic|informati|datos|report/.test(s)) return 'informativo';
+  if(/argumen|debate|opinión|convenc/.test(s)) return 'opinion';
+  if(/teatro|dramátic|obra|dialogad/.test(s)) return 'teatro';
+  return 'cuento';
+}
+function tipoHTML(key, conDonde){
+  const t=TIPOS[key]||TIPOS.cuento;
+  return `<div class="tipobox"><span class="temoji" aria-hidden="true">${t.emoji}</span><span><span class="tname">${t.nombre}</span><br><span class="tej">${t.ej}</span>${conDonde?`<br><span class="tdonde">📍 Dónde lo encuentro: ${t.donde}</span>`:''}</span></div>`;
+}
+function semanasDe(mes){ return SEMANAS_MES[mes]||4; }
+function matTemas(str){ return (str||'').split('·').map(s=>s.trim()).filter(Boolean); }
+function mesIdx(mes){ return ['SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE','ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO'].indexOf(mes); }
+
+/* Plan semanal de lectura: L-J tipos rotados sin repetir, V libre */
+function planSemanaLectura(curso, mes, numSem){
+  const ck = cicloKey(curso);
+  const tipos = TIPOS_CICLO[ck];
+  const estr = OBJ_CICLO[ck].estrategias;
+  const base = inferirTipo(SANT[curso]?.[mes]?.len?.titulo, SANT[curso]?.[mes]?.len?.tarea);
+  const off = mesIdx(mes)*4 + (numSem-1)*4;
+  const dias = ['LUN','MAR','MIÉ','JUE'].map((d,i)=>{
+    const tipo = (i===0 && numSem===1) ? base : tipos[(off+i)%tipos.length];
+    return {dia:d, tipo, estrategia: estr[(off+i)%estr.length]};
+  });
+  const focos = FOCO_SEM[ck];
+  return {dias, foco: focos[Math.min(numSem-1,focos.length-1)]};
+}
+/* Plan semanal de problemas: alterna los temas del mes con pasos claros */
+function planSemanaRP(curso, mes, numSem, totalSem){
+  const temas = matTemas(MAT_ITINERARIO[curso]?.[mes]);
+  if(!temas.length) return null;
+  const t = temas[(numSem-1)%temas.length];
+  const fases = totalSem<=2
+    ? [{t:'Entender y tocar',e:'Presentar los problemas con material que se pueda tocar. Problemas hechos entre todos.'},
+       {t:'Solos + inventar',e:'El alumnado resuelve solo y luego inventa sus propios problemas para la clase.'}]
+    : [{t:'Entender el problema',e:'Leer despacio: ¿qué me cuentan? ¿qué me piden? Usar material manipulable y dibujos.'},
+       {t:'Elegir cómo resolverlo',e:'Problemas guiados entre todos: ¿qué operación uso? ¿hago un dibujo? ¿una tabla?'},
+       {t:'Resolver solos', e:'Cada uno resuelve y COMPRUEBA su respuesta: ¿tiene sentido el resultado?'},
+       {t:'Inventar problemas', e:'El alumnado inventa sus propios problemas y los resuelven entre todos.'}];
+  return {tema:t, fase: fases[Math.min(numSem-1,fases.length-1)]};
+}
+
+/* ══════════ ESTADO ══════════ */
+/* ── Hoy: mes escolar y semana actual (curso 2025-26) ── */
+const MESES_ORDEN=['SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE','ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO'];
+function hoyEscolar(){
+  const d=new Date(); const m=d.getMonth(); // 0=Ene
+  const nombres=['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JUNIO','SEPTIEMBRE','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+  const mesHoy=nombres[m];
+  const trimHoy = ['SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'].includes(mesHoy)?'1':['ENERO','FEBRERO','MARZO'].includes(mesHoy)?'2':'3';
+  const semHoy = Math.min(Math.ceil(d.getDate()/7), SEMANAS_MES[mesHoy]||4);
+  return {mes:mesHoy, trim:trimHoy, sem:semHoy};
+}
+const HOY = hoyEscolar();
+let curso = localStorage.getItem('lr_curso') || '1';
+let trim = HOY.trim, mes = HOY.mes, vista = 'sem';
+
+function mesesConDatos(c,t){
+  return TRIMS[t].meses.filter(m => SANT[c]?.[m] || MAT_ITINERARIO[c]?.[m]);
+}
+
+/* ══════════ SELECTORES ══════════ */
+function renderChips(){
+  document.getElementById('cursoChips').innerHTML = CURSOS.map(c=>
+    `<button class="chip ${c===curso?'act':''}" onclick="setCurso('${c}')" aria-pressed="${c===curso}">${c}º</button>`).join('');
+  document.getElementById('trimChips').innerHTML = Object.keys(TRIMS).map(t=>
+    `<button class="chip ${t===trim?'act':''}" onclick="setTrim('${t}')" aria-pressed="${t===trim}">${TRIMS[t].label}</button>`).join('');
+  const meses = mesesConDatos(curso,trim);
+  if(!meses.includes(mes)) mes = meses[0]||null;
+  const showMes = vista!=='trim';
+  document.getElementById('mesChips').style.display = showMes?'flex':'none';
+  document.getElementById('mesPasoLbl').style.display = showMes?'inline':'none';
+  document.getElementById('mesChips').innerHTML = meses.map(m=>
+    `<button class="chip mesch ${m===mes?'act':''}" onclick="setMes('${m}')" aria-pressed="${m===mes}">${MES_CORTO[m]}</button>`).join('');
+}
+function setCurso(c){curso=c;try{localStorage.setItem('lr_curso',c);}catch(e){}render();}
+function setTrim(t){trim=t;mes=null;render();}
+function setMes(m){mes=m;render();}
+function setVista(v){
+  vista=v;
+  document.querySelectorAll('.vtab').forEach(b=>b.classList.remove('act'));
+  document.getElementById('vt-'+v).classList.add('act');
+  render();
+}
+
+/* ══════════ PIEZAS COMUNES ══════════ */
+function ctxBar(){
+  const ck = cicloKey(curso);
+  return `<div class="ctxbar"><span aria-hidden="true" style="font-size:1.2rem">🎯</span>
+    <span>Estás viendo: <strong>${CL[curso]}</strong> · ${TRIMS[trim].largo}${vista!=='trim'&&mes?' · '+mes:''}</span>
+    <span class="badge b-lec">📖 Lectura</span><span class="badge b-mat">🔢 Problemas</span>
+  </div>`;
+}
+function printHead(txt){
+  return `<div class="printhead">Plan de Actuación · CEIP Capitulaciones de Santa Fe · ${CL[curso]} · ${txt}</div>`;
+}
+function relojSesion(){
+  return `<div class="reloj">
+    <div class="fasebox fb1"><div class="ft">1️⃣ ANTES · 5 min</div>Antes de leer: ¿de qué creéis que va? Miramos el título, las imágenes, alguna palabra difícil.</div>
+    <div class="fasebox fb2"><div class="ft">2️⃣ LEEMOS · 15 min</div>Leemos el texto con una actividad concreta (en voz alta, por turnos, subrayando…).</div>
+    <div class="fasebox fb3"><div class="ft">3️⃣ DESPUÉS · 10 min</div>¿Qué hemos entendido? Preguntas, dibujo, resumen, opinión… algo pequeño y concreto.</div>
+  </div>`;
+}
+function escalera(){
+  return `<div class="escalera">
+    <div class="nivel n1"><div class="nt">🟢 Nivel 1 — Lo que dice el texto</div>Responder a lo que aparece escrito tal cual: ¿quién?, ¿qué?, ¿dónde?</div>
+    <div class="nivel n2"><div class="nt">🔵 Nivel 2 — Leer entre líneas</div>Adivinar lo que el texto no dice pero se deduce: ¿por qué lo hizo?, ¿cómo se siente?</div>
+    <div class="nivel n3"><div class="nt">🟣 Nivel 3 — Opinar</div>Valorar el texto: ¿te ha gustado?, ¿estás de acuerdo?, ¿te fías de lo que dice?</div>
+  </div>`;
+}
+
+/* ── VISTA TRIMESTRE ── */
+function renderTrim(){
+  const ck = cicloKey(curso), cd = OBJ_CICLO[ck];
+  const meses = mesesConDatos(curso,trim);
+  let html = ctxBar() + printHead(TRIMS[trim].largo);
+
+  html += `<div class="card lec">
+    <h2>📖 Lectura: así se trabaja TODOS los días en ${CL[curso]}</h2>
+    <p style="font-size:.92rem;font-weight:700">Muy fácil: <strong>30 minutos al día</strong>. De lunes a jueves, <strong>cada día un texto distinto</strong>. El viernes, <strong>cada niño/a lee el libro que quiera</strong> (biblioteca o itinerario del cole). Cada sesión tiene siempre los mismos 3 pasos:</p>
+    ${relojSesion()}
+    <h3>🎯 ¿Qué queremos conseguir este curso? (${cd.label})</h3>
+    <ul class="clean">${cd.objetivos.map(o=>`<li>${o}</li>`).join('')}</ul>
+  </div>`;
+
+  html += `<div class="card mat">
+    <h2>🔢 Problemas de Matemáticas: qué toca cada mes</h2>
+    <p class="muted">Estos son los tipos de problemas que marca el Plan del centro para ${CL[curso]}. Se meten dentro de la temática que se esté trabajando ese mes.</p>
+    <ul class="clean mat">${meses.map(m=>{
+      const it = MAT_ITINERARIO[curso]?.[m];
+      return it?`<li><strong>${m}:</strong> ${it}</li>`:'';
+    }).join('')}</ul>
+  </div>`;
+
+  const mesesVocab = meses.filter(m=>VOCAB[curso]?.[m]);
+  if(mesesVocab.length){
+    html += `<div class="card" style="border-left:6px solid #4338ca">
+      <h2 style="color:#3730a3">🔤 Vocabulario del trimestre: 8 palabras nuevas cada mes</h2>
+      <p class="muted">Palabras relacionadas con el tema de cada mes. Se trabajan <strong>2-3 por semana</strong>, un ratito cada día (en la fase ANTES de la lectura o al empezar la clase).</p>
+      ${mesesVocab.map(m=>`<h3>🗓️ ${m}</h3>${vocabChips(VOCAB[curso][m],'mini')}`).join('')}
+    </div>`;
+  }
+
+  html += `<h2 style="font-size:1.05rem;font-weight:900;margin:.4rem 0 .7rem;color:var(--color-primary-dark)">👇 Toca un mes para ver el detalle</h2><div class="mesgrid">`;
+  html += meses.map(m=>{
+    const s = SANT[curso]?.[m];
+    const it = MAT_ITINERARIO[curso]?.[m];
+    const tk = s?.len ? inferirTipo(s.len.titulo,s.len.tarea) : null;
+    return `<button class="mescard" aria-label="Ver detalle de ${m}" onclick="mes='${m}';setVista('mes')">
+      <div class="mhead"><span class="mname">🗓️ ${m}</span><span class="badge b-info">${semanasDe(m)} semanas</span></div>
+      ${s?.len?`<div class="msec lec"><div class="mtit">📖 Lectura · texto estrella: ${TIPOS[tk].emoji} ${TIPOS[tk].nombre}</div>Tema del mes: ${s.len.titulo.split('—')[0].trim()}</div>`:''}
+      ${it?`<div class="msec mat"><div class="mtit">🔢 Problemas</div>${it}</div>`:''}
+      ${!s&&!it?`<div class="muted">Sin datos para este mes.</div>`:''}
+      <div class="verdet">Ver el mes completo →</div>
+    </button>`;
+  }).join('');
+  html += `</div>`;
+  return html;
+}
+
+/* ── VISTA MES ── */
+function renderMes(){
+  if(!mes) return `<div class="empty">⚠️ Este trimestre no tiene meses con datos para ${CL[curso]}.</div>`;
+  const ck = cicloKey(curso), cd = OBJ_CICLO[ck];
+  const s = SANT[curso]?.[mes];
+  const it = MAT_ITINERARIO[curso]?.[mes];
+  const nSem = semanasDe(mes);
+  let html = ctxBar() + printHead(mes+' · '+TRIMS[trim].largo);
+
+  if(s?.len || !it){
+    const tk = s?.len ? inferirTipo(s.len.titulo,s.len.tarea) : 'cuento';
+    html += `<div class="card lec">
+      <h2>📖 Lectura en ${mes} <span class="badge b-info">${nSem} semanas</span></h2>
+      ${s?.len?`
+      <h3>💡 Tema del mes (viene del libro de Lengua)</h3>
+      <p style="font-size:.95rem"><strong>${s.len.titulo}</strong></p>
+      <p class="muted">Los textos que leáis cada día deben tener que ver con este tema.</p>
+      <h3>⭐ Tipo de texto estrella del mes</h3>
+      ${tipoHTML(tk)}`:'<p class="muted">Este mes no hay unidad del libro registrada: usad textos del itinerario lector del cole.</p>'}
+      ${VOCAB[curso]?.[mes]?`<h3>🔤 Las 8 palabras del mes</h3>
+      ${vocabChips(VOCAB[curso][mes])}
+      <p class="muted">Reparto fácil: <strong>2-3 palabras por semana</strong>. Se presentan el lunes en la fase ANTES de la lectura, y se repasan un minuto cada día. En la vista «Semana a semana» te digo cuáles tocan cada semana y qué hacer con ellas.</p>`:''}
+      <h3>⏰ La rutina diaria (siempre igual, 30 min)</h3>
+      ${relojSesion()}
+      <h3>🪜 Los 3 niveles de comprensión (para que el alumnado los conozca)</h3>
+      ${escalera()}
+      <h3>📚 ¿De dónde saco los textos? (fuentes rápidas)</h3>
+      <ul class="clean">
+        <li><strong>Lo primero:</strong> biblioteca de aula y de centro, y el propio libro de Lengua (¡ya tienes ahí la mitad!).</li>
+        <li><strong>Noticias:</strong> «Junior Report» o una noticia local de Santa Fe adaptada por ti.</li>
+        <li><strong>Textos cortos del día a día:</strong> notas del cole, recetas de casa, normas del patio, folletos… valen y encantan.</li>
+        <li><strong>¿No encuentras uno?</strong> Toca el botón «❓ ¿Qué es cada tipo de texto?» de arriba: ahí te digo dónde encontrar cada tipo.</li>
+      </ul>
+      <h3>🧰 Actividades que funcionan en ${cd.label}</h3>
+      <div class="tagrow">${cd.estrategias.map(e=>`<span class="tag">${e}</span>`).join('')}</div>
+      <p class="muted" style="margin-top:.5rem">📌 Regla de oro: no repetir el mismo tipo de texto dos días seguidos, y subir la dificultad poco a poco de la semana 1 a la ${nSem}.</p>
+    </div>`;
+  }
+
+  if(it){
+    const temas = matTemas(it);
+    html += `<div class="card mat">
+      <h2>🔢 Problemas de Matemáticas en ${mes}</h2>
+      <h3>Qué tipos de problemas tocan este mes</h3>
+      <ul class="clean mat">${temas.map(t=>`<li>${t}</li>`).join('')}</ul>
+      ${s?.mat?`<h3>💡 Contexto del libro de Mates este mes</h3>
+      <p style="font-size:.92rem"><strong>${s.mat.titulo}</strong></p>
+      <p class="muted">${s.mat.tarea}</p>`:''}
+      <h3>👣 Los 5 pasos para resolver cualquier problema (repetir siempre)</h3>
+      <div class="reloj">
+        <div class="fasebox fb1"><div class="ft">1️⃣ Leo y entiendo</div>¿Qué me cuentan? ¿Qué me piden?</div>
+        <div class="fasebox fb2"><div class="ft">2️⃣ Dibujo o represento</div>Un dibujo, un esquema, material que se toca…</div>
+        <div class="fasebox fb2"><div class="ft">3️⃣ Elijo cómo resolver</div>¿Sumo? ¿Resto? ¿Hago una tabla? ¿Pruebo?</div>
+        <div class="fasebox fb3"><div class="ft">4️⃣ Resuelvo</div>Hago las operaciones con calma.</div>
+        <div class="fasebox fb3"><div class="ft">5️⃣ Compruebo</div>¿Tiene sentido mi respuesta? La escribo con una frase.</div>
+      </div>
+    </div>`;
+  }
+  if(!s && !it) html += `<div class="empty">⚠️ No hay datos registrados para ${mes} en ${CL[curso]}.</div>`;
+  html += `<button class="btn-big" onclick="setVista('sem')">📆 Ver ${mes} semana a semana →</button>`;
+  return html;
+}
+
+/* ── VISTA SEMANAS ── */
+function renderSem(){
+  if(!mes) return `<div class="empty">⚠️ Este trimestre no tiene meses con datos para ${CL[curso]}.</div>`;
+  const nSem = semanasDe(mes);
+  const s = SANT[curso]?.[mes];
+  let html = ctxBar() + printHead(mes+' · semana a semana');
+  if(s?.len) html += `<div class="ctxbar" style="background:var(--color-lectura-light);border-color:#e9d5ff;color:var(--color-lectura-dark)"><span aria-hidden="true" style="font-size:1.2rem">💡</span><span>Tema del mes: <strong>${s.len.titulo.split('—')[0].trim()}</strong> — buscad textos relacionados con esto.</span></div>`;
+  html += `<div class="semgrid">`;
+  for(let w=1; w<=nSem; w++){
+    const lec = planSemanaLectura(curso, mes, w);
+    const rp = planSemanaRP(curso, mes, w, nSem);
+    const vc = vocabSemana(curso, mes, w, nSem);
+    const esHoy = (mes===HOY.mes && w===HOY.sem);
+    const hechaKey = `lr_ok_${curso}_${mes}_${w}`;
+    const hecha = localStorage.getItem(hechaKey)==='1';
+    html += `<div class="semcard ${esHoy?'aqui':''}">
+      <div class="semhead"><span>📆 Semana ${w} de ${nSem} ${esHoy?'<span class="aquibadge">📍 Estamos aquí</span>':''}</span>
+        <label class="chkhecha"><input type="checkbox" ${hecha?'checked':''} onchange="marcarSemana('${hechaKey}',this.checked)" aria-label="Marcar semana ${w} como hecha"> ✓ Hecha</label></div>
+      <div class="sembody">
+        <div class="semsec lec">
+          <div class="stit">📖 Lectura · esta semana: ${lec.foco.t}</div>
+          <span class="muted" style="font-size:.75rem">${lec.foco.e}</span>
+          ${lec.dias.map(d=>{const t=TIPOS[d.tipo];return `<div class="dayrow"><span class="daylab">${d.dia}</span><span class="dayemoji" aria-hidden="true">${t.emoji}</span><span class="daytxt"><strong>${t.nombre}</strong><br><span class="dej">Actividad: ${d.estrategia}</span></span></div>`;}).join('')}
+          <div class="dayrow"><span class="daylab v">VIE</span><span class="dayemoji" aria-hidden="true">🏖️</span><span class="daytxt"><strong>Lectura libre</strong><br><span class="dej">Cada uno con su libro (biblioteca o itinerario del cole)</span></span></div>
+        </div>
+        ${vc?`<div class="vocabsec">
+          <div class="stit">🔤 Palabras de la semana</div>
+          ${vocabChips(vc,'mini')}
+          <span class="muted" style="font-size:.76rem">Qué hacemos con ellas: ${ACT_VOCAB[cicloKey(curso)][(w-1)%ACT_VOCAB[cicloKey(curso)].length]}.</span>
+        </div>`:''}
+        ${rp?`<div class="semsec mat">
+          <div class="stit">🔢 Problemas · ${rp.fase.t}</div>
+          <strong>${rp.tema}</strong><br>
+          <span class="muted" style="font-size:.76rem">${rp.fase.e}</span>
+        </div>`:''}
+        <div class="duasec">💛 <strong>Para quien le cuesta más:</strong> ${DUA_CICLO[cicloKey(curso)]}</div>
+        <div class="notasprint">📝 Notas de la semana: ______________________________________________</div>
+      </div>
+    </div>`;
+  }
+  html += `</div>
+  <div class="ctxbar" style="margin-top:1rem;background:var(--color-warning-bg);border-color:#fcd34d;color:#92400e"><span aria-hidden="true" style="font-size:1.2rem">✏️</span><span>Esto es una <strong>propuesta</strong>: puedes cambiar cualquier texto por otro que te guste más, siempre que sea del mismo tipo. Lo importante es la rutina de 3 pasos y no repetir tipo dos días seguidos.</span></div>`;
+  return html;
+}
+
+/* ── Marcar semana como hecha (se guarda en este dispositivo) ── */
+function marcarSemana(key,val){ try{ val?localStorage.setItem(key,'1'):localStorage.removeItem(key); }catch(e){} render(); }
+
+/* ── Ayudas para el alumnado que más lo necesita (DUA, medidas ordinarias) ── */
+const DUA_CICLO={
+ '1':'texto más corto o con pictogramas · leerlo antes en casa con la familia · leer en pareja con un compañero lector',
+ '2':'texto más corto · lectura en pareja · preguntas con opciones para elegir · en problemas: con dibujo y material que se toca',
+ '3':'entregar el texto el día antes para anticiparlo · permitir subrayar y hacer esquema · en problemas: menos datos y pasos escritos'
+};
+
+/* ══════════ MODAL GUÍA ══════════ */
+function abrirGuia(){
+  document.getElementById('guiaGrid').innerHTML = Object.keys(TIPOS).map(k=>tipoHTML(k,true)).join('');
+  document.getElementById('guiaBg').classList.add('show');
+}
+function cerrarGuia(){ document.getElementById('guiaBg').classList.remove('show'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') cerrarGuia(); });
+
+/* ══════════ RENDER ══════════ */
+function render(){
+  renderChips();
+  const m = document.getElementById('main');
+  m.innerHTML = vista==='trim' ? renderTrim() : vista==='mes' ? renderMes() : renderSem();
+}
+document.querySelectorAll('.vtab').forEach(b=>b.classList.remove('act'));
+document.getElementById('vt-'+vista).classList.add('act');
+render();
+</script>
+</body>
+</html>
