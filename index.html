@@ -51,7 +51,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
 }
 
 /* HEADER */
-.header{background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--color-border);padding:.7rem 1.2rem .8rem;position:sticky;top:0;z-index:50;box-shadow:var(--shadow-sm)}
+.header{background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--color-border);padding:.7rem 1.2rem .8rem;box-shadow:var(--shadow-sm)}
 .hc{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
 .hbanner{position:relative;width:100%;max-width:1080px;margin:0 auto .5rem;display:flex;justify-content:center;padding:.2rem 0}
 .hbanner img{width:100%;height:auto;max-height:150px;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 3px 10px rgba(27,44,80,.16))}
@@ -166,6 +166,22 @@ ul.clean.mat li::before{content:'🔢'}
 .bctxt{display:flex;flex-direction:column;line-height:1.32}
 .bctxt strong{font-size:.88rem;font-weight:600;color:#fff}
 .bcsub{font-size:.73rem;color:rgba(255,255,255,.88);font-weight:400}
+.btnrp{display:flex;align-items:center;gap:.7rem;width:100%;margin-top:.7rem;text-align:left;text-decoration:none;
+  background:linear-gradient(135deg,#7dff3d 0%,#22d94e 45%,#00a86b 100%);border:none;border-radius:16px;
+  padding:.8rem .95rem;cursor:pointer;font-family:inherit;transition:all .22s;min-height:60px;
+  position:relative;overflow:hidden;box-shadow:0 6px 18px rgba(34,217,78,.42),inset 0 1px 0 rgba(255,255,255,.45)}
+.btnrp:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(34,217,78,.55),inset 0 1px 0 rgba(255,255,255,.5)}
+.btnrp:active{transform:scale(.99)}
+.btnrp:focus-visible{outline:3px solid #00a86b;outline-offset:3px}
+.btnrp::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-18deg);
+  animation:brilloc 5s ease-in-out infinite .9s}
+.brpico{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.3);color:#053d22;display:flex;
+  align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;font-weight:600;
+  border:1.5px solid rgba(255,255,255,.5)}
+.brptxt{display:flex;flex-direction:column;line-height:1.32}
+.brptxt strong{font-size:.88rem;font-weight:700;color:#053d22}
+.brpsub{font-size:.73rem;color:#0a5c34;font-weight:500}
 .duasec{margin-top:.6rem;padding:.55rem .7rem;border-radius:14px;font-size:.78rem;font-weight:400;line-height:1.5;background:#fefce8;border:1.5px dashed #fde047;color:#713f12}
 .notasprint{display:none;margin-top:.5rem;font-size:.78rem;font-weight:500;color:#475569}
 .tdonde{display:block;font-size:.7rem;font-weight:500;color:#0e7490;margin-top:.2rem}
@@ -202,7 +218,7 @@ ul.clean.sen li::before{content:'👀'}
 .promptta{width:100%;min-height:260px;margin-top:.6rem;font-family:ui-monospace,monospace;font-size:.76rem;line-height:1.45;border:2px solid var(--color-border);border-radius:12px;padding:.7rem;background:#f8fafc;color:#334155;resize:vertical}
 .aviso{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(150%);background:#0f172a;color:#fff;padding:.8rem 1.3rem;border-radius:50px;font-weight:600;font-size:.86rem;box-shadow:0 10px 30px rgba(15,23,42,.35);z-index:200;transition:transform .3s;max-width:90vw;text-align:center}
 .aviso.show{transform:translateX(-50%) translateY(0)}
-@media print{.difcard:not(.open){break-inside:avoid}.genia,.difchk,.promptta,.btnclaude{display:none}}
+@media print{.difcard:not(.open){break-inside:avoid}.genia,.difchk,.promptta,.btnclaude,.btnrp{display:none}}
 @media print{.notasprint{display:block}.chkhecha{background:none;border:1.5px solid #94a3b8;color:#1e293b}.aquibadge{animation:none}}
 
 /* RELOJ DE SESIÓN (3 fases) */
@@ -1016,7 +1032,11 @@ function renderSem(){
           <div class="stit">🔢 Problemas · ${rp.fase.t}</div>
           <strong>${rp.tema}</strong><br>
           <span class="muted" style="font-size:.76rem">${rp.fase.e}</span>
-        </div>`:''}
+        </div>
+        <a class="btnrp" href="${urlProblemas(curso,mes)}" target="_blank" rel="noopener" aria-label="Abrir el generador de problemas de ${mesTitulo(mes)} para ${CL[curso]}">
+          <span class="brpico" aria-hidden="true">🧮</span>
+          <span class="brptxt"><strong>Generar problemas de esta semana</strong><span class="brpsub">Abre la app con ${CL[curso]} y ${mesTitulo(mes)} ya puestos</span></span>
+        </a>`:''}
         <div class="duasec">💛 <strong>Para quien le cuesta más:</strong> ${DUA_CICLO[cicloKey(curso)]}</div>
         <div class="notasprint">📝 Notas de la semana: ______________________________________________</div>
       </div>
@@ -1025,6 +1045,17 @@ function renderSem(){
   html += `</div>
   <div class="ctxbar" style="margin-top:1rem;background:var(--color-warning-bg);border-color:#fcd34d;color:#92400e"><span aria-hidden="true" style="font-size:1.2rem">✏️</span><span>Esto es una <strong>propuesta</strong>: puedes cambiar cualquier texto por otro que te guste más, siempre que sea del mismo tipo. Lo importante es la rutina de 3 pasos y no repetir tipo dos días seguidos.</span></div>`;
   return html;
+}
+
+/* ── Enlace a la app de Resolución de Problemas (abre en el curso y mes actuales) ── */
+const RP_APP = 'https://vunisal706-droid.github.io/Resoluciondeproblemas/';
+const RP_MESES = ['octubre','noviembre','diciembre','enero','febrero','marzo','abril','mayo','junio'];
+function urlProblemas(curso, mes){
+  const m = String(mes||'').toLowerCase();
+  const p = new URLSearchParams();
+  p.set('curso', curso);
+  if(RP_MESES.includes(m)) p.set('mes', m);
+  return RP_APP + '?' + p.toString();
 }
 
 /* ── Marcar semana como hecha (se guarda en este dispositivo) ── */
