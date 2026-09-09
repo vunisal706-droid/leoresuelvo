@@ -1021,7 +1021,7 @@ function renderSem(){
         </div>
         <button class="btnclaude" onclick="fichaClaude(${w})" aria-label="Generar la ficha de lectura de la semana ${w} con Claude">
           <span class="bcico" aria-hidden="true">✦</span>
-          <span class="bctxt"><strong>Crear las fichas de esta semana con Claude</strong><span class="bcsub">Un PDF con la guía del maestro y 4 fichas del alumnado a doble cara</span></span>
+          <span class="bctxt"><strong>Crear las fichas de esta semana con Claude</strong><span class="bcsub">Guía del maestro y 4 fichas del alumnado a doble cara, listas para imprimir o descargar en Word</span></span>
         </button>
         ${vc?`<div class="vocabsec">
           <div class="stit">🔤 Palabras de la semana</div>
@@ -1242,138 +1242,102 @@ function promptSemana(w, difs){
   const pl=planSemanaLectura(curso,mes,w), vc=vocabSemana(curso,mes,w,nSem);
   const dias=pl.dias.map(d=>{
     const t=TIPOS[d.tipo];
-    return `  - ${d.dia}: ${t.nombre} (${t.ej}). Actividad de lectura prevista: ${d.estrategia}.`;
+    return `  - ${d.dia}: ${t.nombre} (${t.ej}). Actividad: ${d.estrategia}.`;
   }).join('\n');
 
-  const anchoLinea = ck==='1' ? '18 mm de alto, con pauta doble' : ck==='2' ? '14 mm de alto' : '11 mm de alto';
+  const anchoLinea = ck==='1' ? '18mm con pauta doble' : ck==='2' ? '14mm' : '11mm';
   const largoTexto = ck==='1' ? '60-120 palabras, frases muy cortas' : ck==='2' ? '120-200 palabras' : '200-300 palabras';
   const nPreg = ck==='1' ? 4 : ck==='2' ? 5 : 6;
-  const ptLectura = ck==='1' ? '16-18 pt' : ck==='2' ? '14-16 pt' : '13-14 pt';
-  const ptCuerpo = ck==='1' ? '12 pt' : '11 pt';
-  const extraVocab = ck==='1' ? ' o hacer un dibujo pequeño' : '';
-  const ptAdaptado = ck==='1' ? '18 pt' : ck==='2' ? '16 pt' : '14 pt';
+  const ptLectura = ck==='1' ? '17pt' : ck==='2' ? '15pt' : '13pt';
+  const ptCuerpo = ck==='1' ? '12pt' : '11pt';
+  const extraVocab = ck==='1' ? ' o un dibujo pequeño' : '';
+  const ptAdaptado = ck==='1' ? '18pt' : ck==='2' ? '16pt' : '14pt';
   const largoAdaptado = ck==='1' ? '35-60 palabras' : ck==='2' ? '60-100 palabras' : '90-140 palabras';
-  const difsTxt = difs.map(id=>{const d=DIF.items[id];return `  · ${d.nombre} (${d.tecnico}): ${d.que}\n    Medidas que ya aplicamos: ${d.plan.antes} | ${d.plan.durante} | ${d.plan.despues}`;}).join('\n');
+  const difsTxt = difs.map(id=>{const d=DIF.items[id];return `  · ${d.nombre} (${d.tecnico}): ${d.que}\n    Ya aplicamos: ${d.plan.antes} | ${d.plan.durante} | ${d.plan.despues}`;}).join('\n');
+  const nCaras = difs.length ? 12 : 8;
 
-  return `Eres maestro/a de Educación Primaria en Andalucía, con experiencia en comprensión
-lectora y en el marco LOMLOE (Decreto 101/2023).
+  return `Eres maestro/a de Primaria en Andalucía, con experiencia en comprensión lectora y marco LOMLOE (Decreto 101/2023).
 
 ═══ QUÉ NECESITO ═══
-UN ÚNICO ARCHIVO PDF con todo el material de la semana, en este orden:
-  · Páginas 1-2: GUÍA DEL DOCENTE.
-  · Siguientes: FICHAS DEL ALUMNADO, cuatro días (lunes a jueves), DOS CARAS POR DÍA.${difs.length?'\n  · Últimas 4: FICHA ADAPTADA, UNA PÁGINA POR DÍA, para el alumnado con dificultades.':''}
+UN ÚNICO ARTEFACTO HTML (un solo fichero, HTML+CSS+JS embebidos) con todo el material de la semana.
+NO uses Python, NO generes un PDF, NO ejecutes código: solo el artefacto. La maestra imprime desde el navegador.
 
-NO generes un artefacto HTML. Genera el PDF con Python + WeasyPrint (HTML/CSS
-interno como fuente, salida .pdf). Tipografía: DejaVu Sans (está instalada; NO
-uses Google Fonts, no hay red para descargarlas).
+Orden del contenido:
+  · Guía del docente (1-2 caras).
+  · Fichas del alumnado: 4 días (lunes a jueves), 2 CARAS POR DÍA.${difs.length?'\n  · Ficha adaptada: 1 cara por día, 4 al final.':''}
+Total: ${nCaras} caras de ficha + la guía.
 
-═══ PAGINACIÓN OBLIGATORIA (esto es lo que suele fallar) ═══
-Cada día ocupa EXACTAMENTE 2 páginas A4, pensadas para imprimir a doble cara,
-de modo que cada alumno reciba UN FOLIO POR DÍA:
-  · CARA A: cabecera + antes de leer + mis palabras nuevas + el texto completo.
-  · CARA B: cabecera reducida + las ${nPreg} preguntas con renglones + recuadro de
-    dibujo + autoevaluación.
-Ningún bloque puede partirse entre páginas.
+═══ BARRA DE BOTONES (obligatoria, arriba del todo) ═══
+Una barra fija con dos botones, oculta al imprimir (class="no-print"):
+  1. "🖨️ Imprimir / Guardar como PDF" → window.print()
+  2. "⬇️ Descargar en Word" → descarga un .doc con este código exacto:
 
-ANTES DE ENTREGAR, VERIFICA CON CÓDIGO:
-  1. Renderiza cada cara por separado y comprueba que len(doc.pages) == 1.
-  2. Mide la altura ocupada; el contenido debe terminar entre 240 y 285 mm.
-  3. Si alguna cara desborda, reduce interlineado, alto del recuadro de dibujo
-     o acorta enunciados, y vuelve a medir. NO entregues sin que las ${difs.length?'12':'8'} caras
-     den 1 página cada una.
-  4. Rasteriza al menos 2 páginas (pdftoppm) y revísalas visualmente.
-  5. El PDF final debe tener ${difs.length?'2 + (4 × 2) + 4 = 14':'2 + (4 × 2) = 10'} páginas.
-Si algún requisito de tamaño resulta incompatible con el espacio, dímelo
-explícitamente y propón el ajuste, en vez de dejar que el contenido se parta.
+function bajarWord(){
+  const cab='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><style>@page{size:21cm 29.7cm;margin:1.2cm}body{font-family:Calibri,Arial,sans-serif}</style></head><body>';
+  const cuerpo=document.getElementById('doc').innerHTML;
+  const blob=new Blob(['\\ufeff'+cab+cuerpo+'</body></html>'],{type:'application/msword'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Lecturas_semana_${w}.doc';
+  a.click(); URL.revokeObjectURL(a.href);
+}
 
-═══ CÓMO FUNCIONA NUESTRO PLAN DE LECTURA ═══
-Cada día se lee un texto DIFERENTE durante 30 minutos, con tres fases:
-  · ANTES (5 min): activar conocimientos previos, predecir y presentar vocabulario.
-  · LEEMOS (15 min): lectura del texto con una actividad concreta.
-  · DESPUÉS (10 min): responder al texto.
-Niveles de comprensión: nivel 1 "lo que dice el texto", nivel 2 "leer entre
-líneas", nivel 3 "opinar".
+Todo el contenido imprimible va dentro de <div id="doc">. La barra queda FUERA de ese div.
+Bajo los botones, una línea pequeña: "Para fotocopiar, usa Imprimir y marca doble cara. El Word es para retocar textos antes de imprimir."
+
+═══ PAGINACIÓN (CSS, esto es lo que suele fallar) ═══
+@page { size: A4; margin: 12mm }
+Cada cara es un <section class="cara"> con page-break-after: always (la última, avoid).
+Aplica break-inside: avoid a cada bloque (texto, preguntas, recuadros) para que no se parta ninguno.
+Ajusta el contenido a ojo para que cada cara quepa holgada en un A4: mejor que sobre un poco de espacio a que desborde. No hace falta que lo compruebes con código.
+
+═══ CÓMO FUNCIONA NUESTRO PLAN ═══
+Cada día se lee un texto DIFERENTE, 30 minutos, en tres fases: ANTES (5', activar previos, predecir, vocabulario), LEEMOS (15', lectura con una actividad), DESPUÉS (10', responder).
+Niveles de comprensión: 1 "lo que dice el texto", 2 "leer entre líneas", 3 "opinar".
 
 ═══ DATOS DE ESTA SEMANA ═══
 - Curso: ${CL[curso]} (${cd.label}).
 - Mes y semana: ${mesTitulo(mes)}, semana ${w} de ${nSem}.
 - Temática del mes: ${s?.len?s.len.titulo:'sin unidad registrada; usa una temática cercana al alumnado de este curso'}.
-- Foco de comprensión de la semana: ${pl.foco.t} — ${pl.foco.e}.
-- Tipo de texto y actividad de cada día:
+- Foco de la semana: ${pl.foco.t} — ${pl.foco.e}.
+- Tipo de texto y actividad por día:
 ${dias}
-- Vocabulario de la semana: ${vc.length?vc.join(', '):'(sin vocabulario asignado; elige 3 palabras de cada texto)'}.
+- Vocabulario de la semana: ${vc.length?vc.join(', '):'(sin vocabulario asignado; elige 3 palabras de cada texto)'}. Repártelo entre los cuatro días, cada palabra dentro de su texto de forma natural.
 - Actividades habituales del ciclo: ${cd.estrategias.join(', ')}.
 - Alumnado con dificultades: ${DUA_CICLO[ck]}.
 
-═══ CONTENIDO DE CADA FICHA ═══
-CARA A
- 1. Cabecera: Nombre: ____  Fecha: ____ y, a la derecha, un sello con el curso y
-    el día. Debajo, título grande y atractivo del texto y un subtítulo breve.
- 2. ANTES DE LEER: dos preguntas cortas, para responder oralmente o con una
-    palabra (tipo «Mira el título: ¿de qué crees que va?»).
- 3. MIS PALABRAS NUEVAS: recuadro destacado con las palabras de vocabulario que
-    aparecen en ESE texto. Para cada una: significado en lenguaje sencillo y una
-    línea en blanco para escribir una frase propia${extraVocab}.
- 4. EL TEXTO COMPLETO, original y escrito por ti (${largoTexto}),
-    acorde con la temática del mes y con el tipo de texto del día.
-    Interlineado amplio y márgenes generosos. Si es poema, en versos; si es
-    noticia, con titular y entradilla; si es teatro, con los personajes
-    destacados; si es cómic, con viñetas marcadas y bocadillos.
-CARA B
- 5. PREGUNTAS: ${nPreg}, numeradas, cada una con su etiqueta pequeña de nivel (1, 2 o
-    3) y con renglones en blanco debajo para escribir a mano (${anchoLinea}).
-    En orden creciente de dificultad y coherentes con el foco.
- 6. RECUADRO para dibujar, con una consigna concreta ligada al texto.
- 7. AUTOEVALUACIÓN al pie: tres caritas o casillas («lo he entendido todo /
-    casi todo / necesito ayuda»).
-
-${difs.length?`═══ FICHA ADAPTADA (4 páginas finales, una por día) ═══
+═══ CADA FICHA ═══
+CARA A:
+ 1. Cabecera: Nombre: ____  Fecha: ____ y, a la derecha, sello con curso y día. Debajo, título grande y atractivo + subtítulo breve.
+ 2. ANTES DE LEER: dos preguntas cortas, de respuesta oral o de una palabra.
+ 3. MIS PALABRAS NUEVAS: recuadro con las palabras de ESE texto; para cada una, significado sencillo y una línea en blanco para escribir una frase propia${extraVocab}.
+ 4. EL TEXTO COMPLETO, original y escrito por ti (${largoTexto}), acorde con la temática y el tipo de texto del día, a ${ptLectura} con interlineado amplio. Si es poema, en versos; noticia, con titular y entradilla; teatro, con personajes destacados; cómic, con viñetas y bocadillos.
+CARA B:
+ 5. ${nPreg} PREGUNTAS numeradas, con etiqueta pequeña de nivel (1, 2 o 3), en orden creciente de dificultad y coherentes con el foco. Debajo de cada una, renglones en blanco de ${anchoLinea} para escribir a mano.
+ 6. RECUADRO para dibujar, con consigna concreta ligada al texto.
+ 7. AUTOEVALUACIÓN al pie: tres casillas ("lo he entendido todo / casi todo / necesito ayuda").
+${difs.length?`
+═══ FICHA ADAPTADA (1 cara por día, 4 al final) ═══
 En esta clase hay alumnado con estas dificultades:
 ${difsTxt}
+Reglas:
+ · MISMO texto y MISMA temática que el resto: la inclusión es participar en lo mismo. Nada de infantilizar ni cambiar de tema.
+ · Texto reducido (${largoAdaptado}), frases de una sola idea, párrafos separados, palabras clave en NEGRITA, letra a ${ptAdaptado} con interlineado amplio.
+ · Solo 2 palabras de vocabulario, las imprescindibles, con hueco para dibujarlas.
+ · Solo 3 preguntas: dos de nivel 1 y una de nivel 2, TODAS CERRADAS (opción múltiple, verdadero/falso u ordenar tres viñetas). Sin respuesta abierta.
+ · Aplica de forma visible los ajustes de las dificultades listadas (apoyo visual, opciones cerradas, pictogramas, menos datos, guion de pasos…).
+ · Que NO parezca la ficha "de los que van peor": mismo diseño, colores y encabezados. Sin ninguna marca que la señale.
+ · Misma autoevaluación al pie y mismo foco de comprensión: se adapta el acceso, no se rebaja el objetivo.
+` : ''}
+═══ DISEÑO ═══
+- Modo claro siempre, fondo blanco, pensado para fotocopiar: colores suaves en recuadros y encabezados, distinguibles también en blanco y negro. Nada de fondos oscuros que gasten tóner.
+- Fuentes del sistema (font-family: system-ui, Segoe UI, Arial). No enlaces Google Fonts.
+- Cuerpo mínimo ${ptCuerpo}. Cada sección con su encabezado de color. Espacio real para escribir, no líneas simbólicas.
+- Todo el lenguaje de las fichas va dirigido al alumnado, tuteando y con frases cortas. Ninguna instrucción para el docente dentro de la ficha.
 
-Crea, además de las fichas ordinarias, UNA FICHA ADAPTADA POR DÍA (una sola cara
-A4 cada una, cuatro en total, al final del PDF). Reglas:
- · MISMO texto y MISMA temática que el resto de la clase: la inclusión es
-   participar en lo mismo, no hacer una actividad paralela. Nada de infantilizar
-   el contenido ni de cambiar de tema.
- · Versión del texto reducida (${largoAdaptado}), con frases de una sola idea,
-   párrafos separados y las palabras clave en NEGRITA. Letra a ${ptAdaptado} e
-   interlineado más amplio que la ficha ordinaria.
- · Solo 2 palabras de vocabulario, las imprescindibles para entender el texto,
-   con su significado muy sencillo y hueco para dibujarlas.
- · Solo 3 preguntas: dos de nivel 1 y una de nivel 2, TODAS CERRADAS (opción
-   múltiple a/b/c, verdadero/falso u ordenar tres viñetas). Nada de respuesta
-   abierta ni renglones para redactar.
- · Aplica de forma visible los ajustes que corresponden a las dificultades
-   listadas arriba (apoyo visual, opciones cerradas, pictogramas, menos datos,
-   guion de pasos… según el caso).
- · Que NO parezca una ficha "de los que van peor": mismo diseño, mismos colores
-   y mismos encabezados que las demás. Sin ninguna marca que la señale.
- · Al pie, la misma autoevaluación de tres caritas.
- · Mismo foco de comprensión de la semana: se adapta el acceso, no se rebaja el
-   objetivo.
-
-` : ''}═══ DISEÑO ═══
-- Modo claro siempre, fondo blanco, pensado para fotocopiar: colores suaves en
-  recuadros y encabezados, distinguible también en blanco y negro.
-- Texto de lectura a ${ptLectura} como mínimo. Resto del cuerpo, no menos de ${ptCuerpo}.
-- Cada sección con su encabezado de color para localizarla de un vistazo.
-- Sin bordes recargados ni fondos oscuros que gasten tóner.
-- Espacio real para escribir, no líneas simbólicas.
-- Reparte el vocabulario de la semana entre los cuatro días y haz que cada
-  palabra aparezca de forma natural dentro de su texto.
-- Todo el lenguaje de las fichas va dirigido al alumnado, tuteando y con frases
-  cortas. Ninguna instrucción para el docente dentro de la ficha.
-
-═══ GUÍA DEL DOCENTE (páginas 1-2 del PDF) ═══
-Máximo dos páginas, con letra compacta. Para cada día:
-  · Cómo dirigir los 5 minutos del ANTES.
-  · Qué hacer exactamente en los 15 de lectura, con el reparto de minutos.
-  · Cómo cerrar los 10 del DESPUÉS.
-  · Tabla con las respuestas esperadas de las ${nPreg} preguntas.
-  · Adaptación concreta para quien necesita más apoyo.${difs.length?'\nAñade al final de la guía un apartado breve titulado «Alumnado con dificultades»\nexplicando cómo usar la ficha adaptada dentro de la misma sesión que el resto\nde la clase, y qué observar para saber si está funcionando.':''}
-Incluye al principio una nota de impresión: imprimir a doble cara, un folio por
-alumno y día.`;
+═══ GUÍA DEL DOCENTE (al principio, 1-2 caras) ═══
+Letra compacta. Para cada día: cómo dirigir los 5' del ANTES, qué hacer en los 15' de lectura con reparto de minutos, cómo cerrar los 10' del DESPUÉS, tabla con las respuestas esperadas de las ${nPreg} preguntas y la adaptación concreta para quien necesita más apoyo.${difs.length?'\nAñade un apartado breve «Alumnado con dificultades»: cómo usar la ficha adaptada dentro de la misma sesión y qué observar para saber si funciona.':''}
+Empieza con una nota de impresión: imprimir a doble cara, un folio por alumno y día.`;
 }
 /* ── Paso previo: ¿hay alumnado con dificultades en esta clase? ── */
 let semanaPend=null, difFicha=[];
@@ -1403,14 +1367,14 @@ function pintarModalDif(){
     ? `✦ Generar con ficha adaptada (${n})`
     : `✦ Generar solo las fichas normales`;
   document.getElementById('difModCount').textContent = n
-    ? `Se añadirán 4 páginas más: una ficha adaptada por día, con el mismo texto y la misma temática que el resto de la clase.`
-    : `Si no marcas nada, el PDF llevará solo las fichas ordinarias (10 páginas).`;
+    ? `Se añadirán 4 caras más: una ficha adaptada por día, con el mismo texto y la misma temática que el resto de la clase.`
+    : `Si no marcas nada, el material llevará solo las fichas ordinarias (8 caras).`;
 }
 function lanzarFicha(){
   cerrarModalDif();
   const txt=promptSemana(semanaPend, difFicha);
   copiarTexto(txt).then(()=>{
-    avisar('✅ Petición copiada. Se abre Claude: pega con Ctrl+V (o Cmd+V) y envía. Tardará un poco: está creando el PDF.');
+    avisar('✅ Petición copiada. Se abre Claude: pega con Ctrl+V (o Cmd+V) y envía. Cuando termine, usa los botones de imprimir o descargar que verás arriba del material.');
     window.open('https://claude.ai/new','_blank','noopener');
   }).catch(()=>{ verPromptSemana(semanaPend); avisar('⚠️ No he podido copiarlo solo. Cópialo del cuadro de abajo.'); });
 }
