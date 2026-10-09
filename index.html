@@ -193,6 +193,15 @@ ul.clean.mat li::before{content:'🔢'}
 .vtab-dif:hover{border-color:#f97316}
 .vtab-dif.act{background:linear-gradient(160deg,#fb923c 0%,#f4623a 45%,#dc2626 100%);border-color:#ea580c;color:#fff;box-shadow:0 6px 20px rgba(234,88,12,.45),inset 0 1px 0 rgba(255,255,255,.55)}
 .vtab-dif.act .vsub{opacity:.95}
+.vtab-sda{background:linear-gradient(160deg,#eef4ff 0%,#dbe7fb 100%);border-color:#7aa9e8;color:#1B2C50}
+.vtab-sda.act{background:linear-gradient(135deg,#1F4E8C 0%,#1B2C50 100%);border-color:#1B2C50;color:#fff}
+.sdata{width:100%;min-height:220px;font:inherit;font-size:.9rem;line-height:1.5;border:2px solid var(--color-border);border-radius:14px;padding:.8rem;background:#fff;color:var(--color-text);resize:vertical}
+.sdata:focus{outline:none;border-color:var(--color-lectura);box-shadow:0 0 0 4px rgba(31,78,140,.12)}
+.sdaopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;margin-top:.8rem}
+.sdaopt{background:#f8fafc;border:1.5px solid var(--color-border);border-radius:14px;padding:.6rem .8rem}
+.sdaopt .genlab{margin-bottom:.35rem}
+.sdaopt select,.sdaopt input{width:100%;font:inherit;padding:.5rem .6rem;border:1.5px solid var(--color-border);border-radius:10px;background:#fff;min-height:44px}
+.sdadet{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
 .difgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:.8rem;align-items:start}
 .difcard{background:var(--color-surface);border:2px solid var(--color-border);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;transition:border-color .18s,box-shadow .18s}
 .difcard.open{grid-column:1/-1;border-color:#ca8a04;box-shadow:var(--shadow-md)}
@@ -372,6 +381,7 @@ ul.clean.sen li::before{content:'👀'}
       <button class="vtab act" id="vt-trim" role="tab" onclick="setVista('trim')">📅 Todo el trimestre<span class="vsub">visión general</span></button>
       <button class="vtab" id="vt-mes" role="tab" onclick="setVista('mes')">🗓️ Un mes<span class="vsub">qué y cómo trabajarlo</span></button>
       <button class="vtab" id="vt-sem" role="tab" onclick="setVista('sem')">📆 Semana a semana<span class="vsub">plan día a día</span></button>
+      <button class="vtab vtab-sda" id="vt-sda" role="tab" onclick="setVista('sda')">📋 Desde mi SdA<span class="vsub">pego la SdA y salen las fichas</span></button>
       <button class="vtab vtab-dif" id="vt-dif" role="tab" onclick="setVista('dif')">💛 Dificultades<span class="vsub">quién necesita ayuda y cómo</span></button>
     </div>
   </div>
@@ -1340,9 +1350,9 @@ Letra compacta. Para cada día: cómo dirigir los 5' del ANTES, qué hacer en lo
 Empieza con una nota de impresión: imprimir a doble cara, un folio por alumno y día.`;
 }
 /* ── Paso previo: ¿hay alumnado con dificultades en esta clase? ── */
-let semanaPend=null, difFicha=[];
+let semanaPend=null, difFicha=[], fichaModo='semana';
 function fichaClaude(w){
-  semanaPend=w;
+  semanaPend=w; fichaModo='semana';
   try{ difFicha=JSON.parse(localStorage.getItem('lr_dif_'+curso)||'[]'); }catch(e){ difFicha=[]; }
   pintarModalDif();
   document.getElementById('difBg').classList.add('show');
@@ -1368,15 +1378,16 @@ function pintarModalDif(){
     : `✦ Generar solo las fichas normales`;
   document.getElementById('difModCount').textContent = n
     ? `Se añadirán 4 caras más: una ficha adaptada por día, con el mismo texto y la misma temática que el resto de la clase.`
-    : `Si no marcas nada, el material llevará solo las fichas ordinarias (8 caras).`;
+    : (fichaModo==='sda' ? `Si no marcas nada, el material llevará solo las fichas ordinarias.` : `Si no marcas nada, el material llevará solo las fichas ordinarias (8 caras).`);
+  if(fichaModo==='sda' && n) document.getElementById('difModCount').textContent=`Se añadirá una ficha adaptada (1 cara) por cada ficha, con el mismo texto o problema y la misma temática que el resto.`;
 }
 function lanzarFicha(){
   cerrarModalDif();
-  const txt=promptSemana(semanaPend, difFicha);
+  const txt= fichaModo==='sda' ? promptSda(difFicha) : promptSemana(semanaPend, difFicha);
   copiarTexto(txt).then(()=>{
     avisar('✅ Petición copiada. Se abre Claude: pega con Ctrl+V (o Cmd+V) y envía. Cuando termine, usa los botones de imprimir o descargar que verás arriba del material.');
     window.open('https://claude.ai/new','_blank','noopener');
-  }).catch(()=>{ verPromptSemana(semanaPend); avisar('⚠️ No he podido copiarlo solo. Cópialo del cuadro de abajo.'); });
+  }).catch(()=>{ fichaModo==='sda' ? verPromptSda() : verPromptSemana(semanaPend); avisar('⚠️ No he podido copiarlo solo. Cópialo del cuadro de abajo.'); });
 }
 function verPromptSemana(w){
   const dsel=difFicha||[];
@@ -1411,6 +1422,229 @@ function bajar(k){
 function abrirDescargas(){ document.getElementById('descBg').classList.add('show'); }
 function cerrarDescargas(){ document.getElementById('descBg').classList.remove('show'); }
 
+
+/* ══════════ VISTA DESDE MI SdA ══════════ */
+const MESES_ES=['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+let sdaTxt='', sdaCfg={lec:4,rp:2,titulo:''};
+try{ sdaTxt=localStorage.getItem('agora_sda_texto')||''; const c=JSON.parse(localStorage.getItem('agora_sda_cfg')||'null'); if(c) sdaCfg=Object.assign(sdaCfg,c); }catch(e){}
+function _sdaGuardar(){ try{ localStorage.setItem('agora_sda_texto',sdaTxt); localStorage.setItem('agora_sda_cfg',JSON.stringify(sdaCfg)); }catch(e){} }
+function sdaDetectar(t){
+  const f=(t||'').replace(/\s+/g,' ');
+  const out={};
+  const mc=f.match(/([1-6])\s*[ºo°.]?\s*(?:de\s+)?(?:Educ(?:\.|aci[óo]n)?\s*)?Prim/i)||f.match(/Curso\s*:?\s*([1-6])\s*º/i);
+  if(mc) out.curso=mc[1];
+  const mt=f.match(/T[íi]tulo(?:\s+de\s+la\s+SdA)?\s*[:|]\s*["«]?([^"»|\n]{3,90}?)["»]?\s*(?:\||Trimestre|Fechas|Curso|Área|Area|Justificaci|$)/i);
+  if(mt) out.titulo=mt[1].trim();
+  // Mes: primera fecha dd/mm/aa o nombre de mes
+  const g=f.replace(/Fecha\s+de\s+generaci[óo]n\s*:?\s*[\d\/]+/gi,' ');
+  const md=g.match(/(?:Fechas?|Inicio|desde)[^0-9]{0,20}\d{1,2}\/(\d{1,2})\/\d{2,4}/i)||g.match(/\b\d{1,2}\/(\d{1,2})\/\d{2,4}\b/);
+  if(md){ const m=parseInt(md[1],10); if(m>=1&&m<=12) out.mes=MESES_ES[m-1]; }
+  if(!out.mes){ const mm=g.match(/\b(septiembre|octubre|noviembre|diciembre|enero|febrero|marzo|abril|mayo|junio)\b/i); if(mm) out.mes=mm[1].toUpperCase(); }
+  const areas=[['Matemáticas',/matem[áa]tic/i],['Lengua',/lengua castellana|\bLCL\b/i],['Inglés',/ingl[ée]s|\bLE\.0/i],['Educación Física',/educaci[óo]n f[íi]sica|\bEFI\./i],['Conocimiento del Medio',/conocimiento del medio|ciencias de la naturaleza|ciencias sociales|\bCMN/i],['Educación Artística',/art[íi]stica/i]];
+  out.areas=areas.filter(([n,rx])=>rx.test(f)).map(a=>a[0]);
+  return out;
+}
+function sdaCambio(v){
+  sdaTxt=v; _sdaGuardar();
+  const d=sdaDetectar(v);
+  if(d.curso && d.curso!==curso){ curso=d.curso; try{localStorage.setItem('lr_curso',curso);}catch(e){} }
+  if(d.mes){ const t=Object.keys(TRIMS).find(k=>TRIMS[k].meses.includes(d.mes)); if(t){ trim=t; mes=d.mes; } }
+  if(d.titulo && !sdaCfg.titulo) sdaCfg.titulo=d.titulo;
+  render();
+  const ta=document.getElementById('sdaTA'); if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length); }
+}
+function sdaLimpiar(){ sdaTxt=''; sdaCfg.titulo=''; _sdaGuardar(); render(); }
+function renderSdaVista(){
+  const d=sdaDetectar(sdaTxt);
+  const it=MAT_ITINERARIO[curso]?.[mes];
+  const n=sdaTxt.trim().length;
+  let html=`<div class="ctxbar"><span aria-hidden="true" style="font-size:1.2rem">📋</span>
+    <span>Pega tu Situación de Aprendizaje y Claude prepara <strong>fichas de lectura</strong> y <strong>fichas de resolución de problemas</strong> con su misma temática, vocabulario y producto final.</span></div>
+  <div class="card lec">
+    <h2>1️⃣ Pega aquí tu SdA</h2>
+    <p class="muted">Vale el texto que te dio la IA, el Word copiado o el informe de Séneca. Si vienes desde la app de SdA, ya está puesta.</p>
+    <textarea id="sdaTA" class="sdata" placeholder="Pega aquí el texto completo de la SdA…" oninput="clearTimeout(window._sdat);const v=this.value;window._sdat=setTimeout(()=>sdaCambio(v),500)">${sdaTxt.replace(/</g,'&lt;')}</textarea>
+    ${n?`<div class="sdadet">
+      <span class="badge b-info">✅ ${n.toLocaleString('es')} caracteres</span>
+      ${d.curso?`<span class="badge b-lec">📚 ${d.curso}º detectado</span>`:'<span class="badge" style="background:#fef3c7;color:#92400e">⚠️ Curso no detectado: elígelo arriba</span>'}
+      ${d.mes?`<span class="badge b-mat">🗓️ ${mesTitulo(d.mes)}</span>`:''}
+      ${(d.areas||[]).map(a=>`<span class="badge" style="background:#eef2ff;color:#3730a3">${a}</span>`).join('')}
+      <button class="btn-ghost" style="min-height:32px;padding:.2rem .8rem;font-size:.75rem" onclick="sdaLimpiar()">🗑️ Vaciar</button>
+    </div>`:''}
+  </div>
+  <div class="card mat">
+    <h2>2️⃣ ¿Qué fichas quieres?</h2>
+    <div class="sdaopts">
+      <div class="sdaopt"><span class="genlab">Curso (arriba)</span><strong>${CL[curso]}</strong></div>
+      <div class="sdaopt"><label class="genlab" for="sdaLec">📖 Fichas de lectura</label>
+        <select id="sdaLec" onchange="sdaCfg.lec=+this.value;_sdaGuardar()">${[0,1,2,3,4].map(v=>`<option value="${v}" ${sdaCfg.lec===v?'selected':''}>${v?v+(v>1?' fichas':' ficha'):'Ninguna'}</option>`).join('')}</select></div>
+      <div class="sdaopt"><label class="genlab" for="sdaRp">🔢 Fichas de problemas</label>
+        <select id="sdaRp" onchange="sdaCfg.rp=+this.value;_sdaGuardar()">${[0,1,2,3,4].map(v=>`<option value="${v}" ${sdaCfg.rp===v?'selected':''}>${v?v+(v>1?' fichas':' ficha'):'Ninguna'}</option>`).join('')}</select></div>
+      <div class="sdaopt"><label class="genlab" for="sdaTit">Título para las fichas</label>
+        <input id="sdaTit" value="${(sdaCfg.titulo||'').replace(/"/g,'&quot;')}" placeholder="Se detecta solo" oninput="sdaCfg.titulo=this.value;_sdaGuardar()"></div>
+    </div>
+    <p class="muted" style="margin-top:.7rem">💡 Si pides muchas fichas, Claude puede cortar la respuesta. Mejor en dos tandas: primero lectura y luego problemas.</p>
+    ${it?`<p class="muted" style="margin-top:.4rem">🔢 Itinerario de problemas del centro para ${mesTitulo(mes)}: <strong>${it}</strong>. Los problemas lo seguirán, ambientados en la SdA.</p>`:''}
+  </div>
+  <div class="card genia">
+    <h2 style="color:#0f766e">3️⃣ Generar con Claude</h2>
+    <p style="font-size:.91rem;line-height:1.6">Te preguntaré si hay alumnado con dificultades (para añadir fichas adaptadas), se copia la petición y se abre Claude: <strong>pega con Ctrl+V y envía</strong>. Saldrá un material con botones para imprimir o descargar en Word.</p>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem">
+      <button class="btnclaude" style="width:auto;margin:0;${n<80?'opacity:.5;cursor:not-allowed':''}" onclick="fichasSda()" ${n<80?'disabled':''}>
+        <span class="bcico" aria-hidden="true">✦</span><span class="bctxt"><strong>Crear las fichas de esta SdA</strong><span class="bcsub">Guía del maestro + fichas del alumnado</span></span></button>
+      <button class="btn-ghost" onclick="verPromptSda()" ${n<80?'disabled style="opacity:.5"':''}>👁️ Ver la petición</button>
+    </div>
+  </div>
+  <div id="promptBoxSda"></div>`;
+  return html;
+}
+function _sdaFuente(){
+  let f=sdaTxt.trim();
+  // Quitar rúbricas y autoevaluación docente (no hacen falta para las fichas)
+  const cortes=[/\n\s*7\s*[—\-.]\s*VALORACI[ÓO]N/i,/VALORACI[ÓO]N\s+DE\s+LO\s+APRENDIDO/i,/EVALUACI[ÓO]N\s+DE\s+LA\s+PR[ÁA]CTICA\s+DOCENTE/i,/AUTOEVALUACI[ÓO]N\s+DE\s+LA\s+PR[ÁA]CTICA/i];
+  let idx=-1; cortes.forEach(rx=>{const m=f.search(rx); if(m>200&&(idx<0||m<idx)) idx=m;});
+  if(idx>0) f=f.slice(0,idx).trim();
+  const TOPE=14000; if(f.length>TOPE) f=f.slice(0,TOPE)+'\n[…recortado por longitud…]';
+  return f;
+}
+function promptSda(difs){
+  difs=difs||[];
+  const ck=cicloKey(curso), cd=OBJ_CICLO[ck];
+  const nL=sdaCfg.lec, nR=sdaCfg.rp;
+  const it=MAT_ITINERARIO[curso]?.[mes];
+  const anchoLinea = ck==='1' ? '18mm con pauta doble' : ck==='2' ? '14mm' : '11mm';
+  const largoTexto = ck==='1' ? '60-120 palabras, frases muy cortas' : ck==='2' ? '120-200 palabras' : '200-300 palabras';
+  const nPreg = ck==='1' ? 4 : ck==='2' ? 5 : 6;
+  const ptLectura = ck==='1' ? '17pt' : ck==='2' ? '15pt' : '13pt';
+  const ptCuerpo = ck==='1' ? '12pt' : '11pt';
+  const ptAdaptado = ck==='1' ? '18pt' : ck==='2' ? '16pt' : '14pt';
+  const largoAdaptado = ck==='1' ? '35-60 palabras' : ck==='2' ? '60-100 palabras' : '90-140 palabras';
+  const nProb = ck==='1' ? 2 : 3;
+  const difsTxt = difs.map(id=>{const d=DIF.items[id];return `  · ${d.nombre} (${d.tecnico}): ${d.que}\n    Ya aplicamos: ${d.plan.antes} | ${d.plan.durante} | ${d.plan.despues}`;}).join('\n');
+  const tiposL = TIPOS_CICLO[ck].map(k=>TIPOS[k].nombre).join(', ');
+  const nAd = difs.length ? (nL?nL:0)+(nR?nR:0) : 0;
+  const caras = nL*2 + nR*2 + nAd;
+  const tit = sdaCfg.titulo||'(el de la SdA)';
+
+  return `Eres maestro/a de Primaria en Andalucía, experto/a en comprensión lectora y resolución de problemas (LOMLOE, Decreto 101/2023), en un centro de Zona de Transformación Social.
+
+═══ QUÉ NECESITO ═══
+A partir de la SITUACIÓN DE APRENDIZAJE que pego al final, prepara el material de aula que la acompaña:
+${nL?`  · ${nL} FICHAS DE LECTURA (una por día de lectura, 2 caras cada una).\n`:''}${nR?`  · ${nR} FICHAS DE RESOLUCIÓN DE PROBLEMAS (2 caras cada una).\n`:''}${difs.length?`  · Una FICHA ADAPTADA por cada ficha anterior (1 cara cada una), al final.\n`:''}  · Una GUÍA DEL DOCENTE al principio (1-2 caras).
+Total aproximado: ${caras} caras de fichas + la guía.
+
+Todo debe salir de la SdA: misma temática y contexto, mismo vocabulario, mismos saberes básicos y criterios (cita sus códigos en la guía, no en las fichas) y conectado con su PRODUCTO FINAL. Si la SdA es de un área que no es Lengua ni Matemáticas (p. ej. Educación Física, Inglés o Conocimiento del Medio), los textos y los problemas se ambientan en su temática igualmente.
+Nivel asequible (medio-bajo): alumnado de un centro de Zona de Transformación Social, con mucha diversidad y alumnado que se incorpora con español en aprendizaje.
+
+═══ ENTREGA ═══
+UN ÚNICO ARTEFACTO HTML (un solo fichero, HTML+CSS+JS embebidos). NO uses Python, NO generes PDF, NO ejecutes código: solo el artefacto.
+
+Barra fija arriba, oculta al imprimir (class="no-print"), con dos botones:
+  1. "🖨️ Imprimir / Guardar como PDF" → window.print()
+  2. "⬇️ Descargar en Word" → con este código exacto:
+
+function bajarWord(){
+  const cab='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><style>@page{size:21cm 29.7cm;margin:1.2cm}body{font-family:Calibri,Arial,sans-serif}</style></head><body>';
+  const cuerpo=document.getElementById('doc').innerHTML;
+  const blob=new Blob(['﻿'+cab+cuerpo+'</body></html>'],{type:'application/msword'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Fichas_SdA.doc';
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+Todo lo imprimible va dentro de <div id="doc">; la barra, fuera. Bajo los botones, una línea pequeña: "Para fotocopiar, usa Imprimir y marca doble cara. El Word es para retocar antes de imprimir."
+
+Paginación: @page { size: A4; margin: 12mm }. Cada cara es un <section class="cara"> con page-break-after: always (la última, avoid). break-inside: avoid en cada bloque. Mejor que sobre espacio a que desborde.
+
+═══ DATOS ═══
+- Curso: ${CL[curso]} (${cd.label}).
+- Título de la SdA: ${tit}.
+${it?`- Itinerario de problemas del centro para ${mesTitulo(mes)}: ${it}. Úsalo para elegir las operaciones, siempre dentro del contexto de la SdA.\n`:''}- Tipos de texto que rotamos en este ciclo: ${tiposL}.
+- Actividades habituales del ciclo: ${cd.estrategias.join(', ')}.
+- Para quien le cuesta más: ${DUA_CICLO[ck]}.
+${nL?`
+═══ FICHAS DE LECTURA ═══
+Nuestro plan: 30 minutos, tres fases: ANTES (5', activar previos, predecir, vocabulario), LEEMOS (15'), DESPUÉS (10'). Niveles de comprensión: 1 "lo que dice el texto", 2 "leer entre líneas", 3 "opinar".
+Cada ficha con un TIPO DE TEXTO DISTINTO (nunca dos iguales seguidas), elegidos de la lista del ciclo, y con un texto ORIGINAL escrito por ti sobre la temática de la SdA. La última lectura debe preparar o inspirar el producto final.
+CARA A:
+ 1. Cabecera: Nombre: ____  Fecha: ____ y sello con curso y nº de lectura. Título grande y atractivo + subtítulo.
+ 2. ANTES DE LEER: dos preguntas cortas, de respuesta oral o de una palabra.
+ 3. MIS PALABRAS NUEVAS: 2-3 palabras clave de la SdA que aparezcan en el texto, con significado sencillo y una línea para una frase propia${ck==='1'?' o un dibujo':''}.
+ 4. EL TEXTO (${largoTexto}), a ${ptLectura} con interlineado amplio. Respeta el formato del tipo (poema en versos, noticia con titular y entradilla, teatro con personajes, cómic con viñetas y bocadillos…).
+CARA B:
+ 5. ${nPreg} PREGUNTAS numeradas con etiqueta pequeña de nivel (1, 2 o 3), de menor a mayor dificultad, con renglones en blanco de ${anchoLinea}.
+ 6. Recuadro para dibujar con consigna concreta ligada al texto.
+ 7. Autoevaluación al pie: tres casillas ("lo he entendido todo / casi todo / necesito ayuda").
+`:''}${nR?`
+═══ FICHAS DE RESOLUCIÓN DE PROBLEMAS ═══
+Los problemas son situaciones REALES de la SdA (sus personajes, lugares, materiales, actividades y producto final), con datos creíbles y números adecuados al curso. De más fácil a más difícil a lo largo de las fichas.
+Nuestros 5 pasos (aparecen siempre como guía visual en cada problema): 1 Leo y entiendo (¿qué me cuentan?, ¿qué me piden?) · 2 Dibujo o represento · 3 Elijo cómo resolverlo · 4 Resuelvo · 5 Compruebo y respondo con una frase.
+CARA A:
+ 1. Misma cabecera (Nombre, Fecha, sello con curso y nº de ficha). Título ligado a la SdA.
+ 2. Una pequeña situación de partida (3-4 líneas) que conecte con lo que se está haciendo en la SdA.
+ 3. ${nProb} problemas, cada uno con: el enunciado (frases cortas, datos subrayados o en negrita la primera ficha, sin destacar después), recuadro "¿Qué me piden?" para escribir, recuadro amplio para dibujar/esquema y espacio para operaciones.
+CARA B:
+ 4. "Respuesta completa" (renglones) para cada problema de la cara A.
+ 5. "Invento mi problema": el alumno crea uno parecido con los datos que se le dan.
+ 6. Autoevaluación al pie con los 5 pasos como casillas ("he hecho este paso").
+`:''}${difs.length?`
+═══ FICHAS ADAPTADAS (1 cara por cada ficha, al final) ═══
+En clase hay alumnado con estas dificultades:
+${difsTxt}
+Reglas:
+ · MISMO texto o MISMA situación de problema y MISMA temática que el resto: la inclusión es participar en lo mismo. Nada de infantilizar.
+ · Lectura: texto reducido (${largoAdaptado}), frases de una idea, palabras clave en NEGRITA, letra ${ptAdaptado}; solo 2 palabras de vocabulario con hueco para dibujarlas; 3 preguntas cerradas (opción múltiple, verdadero/falso u ordenar viñetas).
+ · Problemas: 1-2 problemas con números más pequeños, datos destacados, dibujo de apoyo ya iniciado y los 5 pasos como guion para marcar.
+ · Aplica de forma visible los ajustes de las dificultades listadas. Mismo diseño que las ordinarias, sin marcas que las señalen.
+`:''}
+═══ DISEÑO ═══
+- Modo claro, fondo blanco, para fotocopiar: colores suaves que se distingan en blanco y negro. Nada de fondos oscuros.
+- Fuentes del sistema (system-ui, Segoe UI, Arial). Sin Google Fonts. Cuerpo mínimo ${ptCuerpo}.
+- Lectura con encabezados en azul; problemas en naranja.
+- Lenguaje de las fichas dirigido al alumnado, tuteando, frases cortas. Ninguna instrucción para el docente dentro de las fichas.
+
+═══ GUÍA DEL DOCENTE (al principio) ═══
+Letra compacta. Tabla inicial que relacione cada ficha con los saberes básicos y criterios de la SdA (códigos) y con su momento en la secuencia. Para cada ficha de lectura: cómo dirigir ANTES / LEEMOS / DESPUÉS y respuestas esperadas. Para cada ficha de problemas: solución paso a paso, errores típicos y cómo ayudar sin dar la respuesta.${difs.length?' Añade cómo usar las fichas adaptadas dentro de la misma sesión.':''}
+Empieza con una nota: imprimir a doble cara.
+
+═══════ SITUACIÓN DE APRENDIZAJE (fuente) ═══════
+"""
+${_sdaFuente()}
+"""
+═══════ FIN DE LA SdA ═══════`;
+}
+function fichasSda(){
+  if(sdaTxt.trim().length<80){ avisar('⚠️ Pega primero la SdA'); return; }
+  if(!sdaCfg.lec && !sdaCfg.rp){ avisar('⚠️ Elige al menos un tipo de ficha'); return; }
+  fichaModo='sda'; semanaPend=null;
+  try{ difFicha=JSON.parse(localStorage.getItem('lr_dif_'+curso)||'[]'); }catch(e){ difFicha=[]; }
+  pintarModalDif();
+  document.getElementById('difBg').classList.add('show');
+}
+function verPromptSda(){
+  const box=document.getElementById('promptBoxSda');
+  box.innerHTML=`<div class="card"><h2>📄 Petición para Claude</h2>
+    <textarea class="promptta" readonly onclick="this.select()">${promptSda(difFicha||[]).replace(/</g,'&lt;')}</textarea>
+    <button class="btn-ghost" style="margin-top:.6rem" onclick="copiarTexto(promptSda(difFicha||[])).then(()=>avisar('✅ Copiado'))">📋 Copiar</button></div>`;
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+/* Recibir la SdA desde la app de SdA (mismo dominio: localStorage; si no, por el enlace) */
+function sdaImportar(){
+  let datos=null;
+  try{ const r=localStorage.getItem('agora_sda_import'); if(r){ datos=JSON.parse(r); localStorage.removeItem('agora_sda_import'); } }catch(e){}
+  if(!datos && location.hash.startsWith('#sda=')){ try{ datos=JSON.parse(decodeURIComponent(location.hash.slice(5))); }catch(e){} }
+  const viene=new URLSearchParams(location.search).get('desde')==='sda';
+  if(location.hash.startsWith('#sda=')) history.replaceState(null,'',location.pathname+location.search);
+  if(!datos||!datos.texto){ if(viene) vista='sda'; return; }
+  sdaTxt=datos.texto; sdaCfg.titulo=datos.titulo||sdaDetectar(datos.texto).titulo||'';
+  _sdaGuardar();
+  const d=sdaDetectar(sdaTxt);
+  const c=datos.curso||d.curso; if(c&&CURSOS.includes(String(c))){ curso=String(c); try{localStorage.setItem('lr_curso',curso);}catch(e){} }
+  if(d.mes){ const t=Object.keys(TRIMS).find(k=>TRIMS[k].meses.includes(d.mes)); if(t){ trim=t; mes=d.mes; } }
+  vista='sda';
+  setTimeout(()=>avisar('📋 SdA recibida desde la app de SdA. Elige las fichas y pulsa «Crear».'),400);
+}
 /* ══════════ MODAL GUÍA ══════════ */
 function abrirGuia(){
   document.getElementById('guiaGrid').innerHTML = Object.keys(TIPOS).map(k=>tipoHTML(k,true)).join('');
@@ -1423,8 +1657,9 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ cerrarGuia(); ce
 function render(){
   renderChips();
   const m = document.getElementById('main');
-  m.innerHTML = vista==='trim' ? renderTrim() : vista==='mes' ? renderMes() : vista==='dif' ? renderDif() : renderSem();
+  m.innerHTML = vista==='trim' ? renderTrim() : vista==='mes' ? renderMes() : vista==='dif' ? renderDif() : vista==='sda' ? renderSdaVista() : renderSem();
 }
+sdaImportar();
 document.querySelectorAll('.vtab').forEach(b=>b.classList.remove('act'));
 document.getElementById('vt-'+vista).classList.add('act');
 render();
