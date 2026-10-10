@@ -1,4 +1,4 @@
-const CACHE_NAME = 'agora-capitulaciones-v1';
+const CACHE_NAME = 'agora-capitulaciones-v1-b2610102004';
 const urlsToCache = [
   './index.html',
   './manifest.json',
